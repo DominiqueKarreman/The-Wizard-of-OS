@@ -1,0 +1,148 @@
+{
+  "" : {
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The Wizard of OS-master.dia",
+    "emit-module-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The Wizard of OS-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The Wizard of OS-master-emit-module.dia",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The Wizard of OS-master.swiftdeps"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/ContentView.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Item.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Item~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Models/Message.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/Message~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Models/MessageList.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageList~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Models/ViewModels/ChatViewModel.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatViewModel~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Models/ViewModels/MessageViewModel.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageViewModel~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Services/AppDelegate.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/AppDelegate~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Services/CloudKitManager.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/CloudKitManager~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Services/StreamingAPIClient.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/StreamingAPIClient~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/The_Wizard_of_OSApp.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/The_Wizard_of_OSApp~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Views/ChatStreamTextEffect.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/ChatStreamTextEffect~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Views/MessageListView.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageListView~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/The Wizard of OS/Views/MessageView.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/MessageView~partial.swiftmodule"
+  },
+  "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/domi/Developer/The Wizard of OS/build/The Wizard of OS.build/Debug-iphoneos/The Wizard of OS.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

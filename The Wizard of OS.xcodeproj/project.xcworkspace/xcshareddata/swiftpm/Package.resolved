@@ -1,0 +1,24 @@
+{
+  "originHash" : "5e89b70cdfa4bfff2673ba0ac6f1deb07e6a5e5e79b420ccbe98e46e967a5a6e",
+  "pins" : [
+    {
+      "identity" : "highlightr",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/raspu/Highlightr.git",
+      "state" : {
+        "revision" : "bcf2d0590f32ac2528feb72d7e34f5b463801a47",
+        "version" : "2.2.1"
+      }
+    },
+    {
+      "identity" : "ollamakit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kevinhermawan/OllamaKit.git",
+      "state" : {
+        "revision" : "b6ff6a0c75a3756450cfb38074f6264be1314abc",
+        "version" : "5.0.8"
+      }
+    }
+  ],
+  "version" : 3
+}

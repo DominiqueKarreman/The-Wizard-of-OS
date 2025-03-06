@@ -1,0 +1,13 @@
+Target dependency graph (6 targets)
+Target 'The Wizard of OS' in project 'The Wizard of OS'
+➜ Explicit dependency on target 'Highlightr' in project 'Highlightr'
+➜ Explicit dependency on target 'OllamaKit' in project 'OllamaKit'
+Target 'OllamaKit' in project 'OllamaKit'
+➜ Explicit dependency on target 'OllamaKit' in project 'OllamaKit'
+Target 'OllamaKit' in project 'OllamaKit' (no dependencies)
+Target 'Highlightr' in project 'Highlightr'
+➜ Explicit dependency on target 'Highlightr' in project 'Highlightr'
+➜ Explicit dependency on target 'Highlightr_Highlightr' in project 'Highlightr'
+Target 'Highlightr' in project 'Highlightr'
+➜ Explicit dependency on target 'Highlightr_Highlightr' in project 'Highlightr'
+Target 'Highlightr_Highlightr' in project 'Highlightr' (no dependencies)

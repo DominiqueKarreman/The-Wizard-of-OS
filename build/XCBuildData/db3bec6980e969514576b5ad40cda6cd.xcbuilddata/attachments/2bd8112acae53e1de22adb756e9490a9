@@ -1,0 +1,4 @@
+module OllamaKit {
+header "OllamaKit-Swift.h"
+export *
+}
