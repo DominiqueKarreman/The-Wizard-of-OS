@@ -44,7 +44,6 @@ final class The_Wizard_of_OSUITests: XCTestCase {
 
 import XCTest
 import SwiftUI
-@testable import The_Wizard_of_OS
 
 class ContentViewTests: XCTestCase {
     
