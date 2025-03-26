@@ -31,7 +31,7 @@ let package = Package(
         .testTarget(
             name: "The Wizard of OSUITests", // UI Test target
             dependencies: ["The Wizard Of OS"], // Link the main target (and potentially other dependencies)
-            path: "./The Wizard of OSTests"
+            path: "The Wizard of OSUITests"
             
         )
     ]
