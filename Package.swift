@@ -28,7 +28,7 @@ let package = Package(
         ),
         .testTarget(
             name: "The Wizard of OSUITests", // UI Test target
-            dependencies: ["The Wizard Of OS"], // Link the main target (and potentially other dependencies)
+            dependencies: ["The Wizard Of OS"] // Link the main target (and potentially other dependencies)
             
         )
     ]
