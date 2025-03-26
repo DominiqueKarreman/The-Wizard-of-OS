@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F651E5F62D835034009590CC /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = F651E5F52D835034009590CC /* Highlightr */; };
 		F670FA6E2D8346A90004B7BC /* OllamaKit in Frameworks */ = {isa = PBXBuildFile; productRef = F670FA6D2D8346A90004B7BC /* OllamaKit */; };
+		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		F60CCD0C2D79DE960086399F /* The Wizard of OS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Wizard of OS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD1F2D79DE960086399F /* The Wizard of OSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6A2FE882D94B8990035BF58 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -40,7 +42,6 @@
 			membershipExceptions = (
 				Info.plist,
 				Models/ViewModels/test.swift,
-				Package.swift,
 			);
 			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
 		};
@@ -52,7 +53,6 @@
 			buildPhase = F60CCD0A2D79DE960086399F /* Resources */;
 			membershipExceptions = (
 				Models/ViewModels/test.swift,
-				Package.swift,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -130,6 +130,7 @@
 		F670FA6C2D8346A30004B7BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6A2FE882D94B8990035BF58 /* Package.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -260,6 +261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

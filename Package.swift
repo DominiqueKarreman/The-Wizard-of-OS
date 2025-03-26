@@ -30,6 +30,6 @@ let package = Package(
             name: "The Wizard of OSUITests", // UI Test target
             dependencies: ["The Wizard Of OS"], // Link the main target (and potentially other dependencies)
             
-        ),
+        )
     ]
 )
