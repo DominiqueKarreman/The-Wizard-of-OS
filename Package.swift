@@ -20,15 +20,18 @@ let package = Package(
     targets: [
         .target(
             name: "The Wizard Of OS", // Replace with your target name
-            dependencies: [] // Add any dependencies here if you have any
+            dependencies: [], // Add any dependencies here if you have any
+            path: "The Wizard Of OS""
         ),
         .testTarget(
             name: "The Wizard of OSTests", // Replace with your test target name
-            dependencies: ["The Wizard Of OS"] // Link the main target
+            dependencies: ["The Wizard Of OS"], // Link the main target
+            path: "The Wizard of OSTests"
         ),
         .testTarget(
             name: "The Wizard of OSUITests", // UI Test target
-            dependencies: ["The Wizard Of OS"] // Link the main target (and potentially other dependencies)
+            dependencies: ["The Wizard Of OS"], // Link the main target (and potentially other dependencies)
+            path: "The Wizard of OSTests"
             
         )
     ]
