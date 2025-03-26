@@ -21,7 +21,7 @@ let package = Package(
         .target(
             name: "The Wizard Of OS", // Replace with your target name
             dependencies: [], // Add any dependencies here if you have any
-            path: "./The Wizard Of OS""
+            path: "./The Wizard Of OS"
         ),
         .testTarget(
             name: "The Wizard of OSTests", // Replace with your test target name
