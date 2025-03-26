@@ -37,18 +37,43 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F670FA682D8345840004B7BC /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */ = {
+		F6A2FF832D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 				Models/ViewModels/test.swift,
+				Services/WizardOfOsDataModel.xcdatamodeld,
 			);
 			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
+		};
+		F6A2FF862D94BBF20035BF58 /* Exceptions for "The Wizard of OSTests" folder in "The Wizard of OSTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CoreDataTest.swift,
+				Info.plist,
+				The_Wizard_of_OSTests.swift,
+			);
+			target = F60CCD1E2D79DE960086399F /* The Wizard of OSTests */;
+		};
+		F6A2FF872D94BBF20035BF58 /* Exceptions for "The Wizard of OSUITests" folder in "The Wizard of OSUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				The_Wizard_of_OSUITests.swift,
+				The_Wizard_of_OSUITestsLaunchTests.swift,
+			);
+			target = F60CCD282D79DE960086399F /* The Wizard of OSUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		F670FA692D8345840004B7BC /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */ = {
+		F6A2FF842D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Compile Sources" phase from "The Wizard of OS" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = F60CCD082D79DE960086399F /* Sources */;
+			membershipExceptions = (
+				Services/WizardOfOsDataModel.xcdatamodeld,
+			);
+		};
+		F6A2FF852D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = F60CCD0A2D79DE960086399F /* Resources */;
 			membershipExceptions = (
@@ -58,22 +83,29 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F60CCD0E2D79DE960086399F /* The Wizard of OS */ = {
+		F6A2FF532D94BBF20035BF58 /* The Wizard of OS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F670FA682D8345840004B7BC /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */,
-				F670FA692D8345840004B7BC /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */,
+				F6A2FF832D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */,
+				F6A2FF842D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Compile Sources" phase from "The Wizard of OS" target */,
+				F6A2FF852D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */,
 			);
 			path = "The Wizard of OS";
 			sourceTree = "<group>";
 		};
-		F60CCD222D79DE960086399F /* The Wizard of OSTests */ = {
+		F6A2FF572D94BBF20035BF58 /* The Wizard of OSTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F6A2FF862D94BBF20035BF58 /* Exceptions for "The Wizard of OSTests" folder in "The Wizard of OSTests" target */,
+			);
 			path = "The Wizard of OSTests";
 			sourceTree = "<group>";
 		};
-		F60CCD2C2D79DE970086399F /* The Wizard of OSUITests */ = {
+		F6A2FF5A2D94BBF20035BF58 /* The Wizard of OSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F6A2FF872D94BBF20035BF58 /* Exceptions for "The Wizard of OSUITests" folder in "The Wizard of OSUITests" target */,
+			);
 			path = "The Wizard of OSUITests";
 			sourceTree = "<group>";
 		};
@@ -109,11 +141,12 @@
 		F60CCD032D79DE960086399F = {
 			isa = PBXGroup;
 			children = (
-				F60CCD0E2D79DE960086399F /* The Wizard of OS */,
-				F60CCD222D79DE960086399F /* The Wizard of OSTests */,
-				F60CCD2C2D79DE970086399F /* The Wizard of OSUITests */,
+				F6A2FE882D94B8990035BF58 /* Package.swift */,
 				F670FA6C2D8346A30004B7BC /* Frameworks */,
 				F60CCD0D2D79DE960086399F /* Products */,
+				F6A2FF532D94BBF20035BF58 /* The Wizard of OS */,
+				F6A2FF572D94BBF20035BF58 /* The Wizard of OSTests */,
+				F6A2FF5A2D94BBF20035BF58 /* The Wizard of OSUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,7 +163,6 @@
 		F670FA6C2D8346A30004B7BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F6A2FE882D94B8990035BF58 /* Package.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -151,7 +183,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				F60CCD0E2D79DE960086399F /* The Wizard of OS */,
+				F6A2FF532D94BBF20035BF58 /* The Wizard of OS */,
 			);
 			name = "The Wizard of OS";
 			packageProductDependencies = (
@@ -175,9 +207,6 @@
 			dependencies = (
 				F60CCD212D79DE960086399F /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				F60CCD222D79DE960086399F /* The Wizard of OSTests */,
-			);
 			name = "The Wizard of OSTests";
 			packageProductDependencies = (
 			);
@@ -197,9 +226,6 @@
 			);
 			dependencies = (
 				F60CCD2B2D79DE970086399F /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F60CCD2C2D79DE970086399F /* The Wizard of OSUITests */,
 			);
 			name = "The Wizard of OSUITests";
 			packageProductDependencies = (
