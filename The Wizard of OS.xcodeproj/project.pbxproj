@@ -40,6 +40,7 @@
 			membershipExceptions = (
 				Info.plist,
 				Models/ViewModels/test.swift,
+				Package.swift,
 			);
 			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
 		};
@@ -51,6 +52,7 @@
 			buildPhase = F60CCD0A2D79DE960086399F /* Resources */;
 			membershipExceptions = (
 				Models/ViewModels/test.swift,
+				Package.swift,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
