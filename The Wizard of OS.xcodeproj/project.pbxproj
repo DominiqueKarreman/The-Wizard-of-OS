@@ -49,7 +49,6 @@
 		F6A2FF862D94BBF20035BF58 /* Exceptions for "The Wizard of OSTests" folder in "The Wizard of OSTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CoreDataTest.swift,
 				Info.plist,
 				The_Wizard_of_OSTests.swift,
 			);
