@@ -21,7 +21,7 @@ struct MainTabView: View {
                         Label(" Calendar", systemImage: "calendar").font(.title)
                     }
 
-                    NavigationLink(destination: CalendarView()) {
+                    NavigationLink(destination: SettingsView()) {
                         Label(" Settings", systemImage: "gearshape.fill").font(.title)
                     }
                 }

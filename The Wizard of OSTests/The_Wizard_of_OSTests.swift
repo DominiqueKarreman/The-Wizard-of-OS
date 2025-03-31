@@ -80,6 +80,7 @@ class StreamingAPIClientTests: XCTestCase {
         super.tearDown()
     }
     
+    
     func testStreamResponse_SuccessWithPrompt() {
         // Test for successful streaming response when providing a valid prompt
         

@@ -20,7 +20,7 @@ struct iOSMainTabView: View {
                     Label("Messages", systemImage: "message")
                 }
 
-            CalendarView()
+            SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
