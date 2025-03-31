@@ -96,7 +96,7 @@ class StreamingAPIClientTests: XCTestCase {
         // Simulate API response and check if it triggers the update
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // Print the content for debugging
-            print(self.mockMessageListVM.tempAssistantMessage?.message.isEmpty ?? true, "empty or not", self.mockMessageListVM.tempAssistantMessage?.message)
+            print(self.mockMessageListVM.tempAssistantMessage?.message.isEmpty ?? true, "empty or not", self.mockMessageListVM.tempAssistantMessage?.message ?? "")
             
             // Assert that the message is not empty
             XCTAssertFalse(self.mockMessageListVM.tempAssistantMessage?.message.isEmpty ?? true, "Expected tempAssistantMessage to not be empty")

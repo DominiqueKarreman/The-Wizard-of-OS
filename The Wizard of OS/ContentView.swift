@@ -271,41 +271,43 @@ public struct ContentView: View {
         }
     }
 }
+
+
 struct PromptTF: View {
     
     var streamingApiClient: StreamingAPIClient!
     @ObservedObject var messageListVM: ChatMessageListViewModel
-    var title: String // Title for the text field
-    @Binding var text: String // Binding for the text input
-    @FocusState var isActive // State to manage focus on the text field
+    var title: String
+    @Binding var text: String
+    @FocusState var isActive
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State private var showModelSelectionModal = false // State to trigger the modal
-    @State private var selectedModel: String? = nil // Track selected model
-    
+    @State private var showModelSelectionModal = false
+    @State private var isHovered = false
+    @AppStorage("model") private var selectedModel: String = "llama3"
+
     var body: some View {
         VStack {
             ZStack(alignment: .leading) {
-                // Background rectangle with opacity
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color("TextField").opacity(0.5))
                     .frame(height: 55)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.gray.opacity(0.8), lineWidth: 1) // Light stroke for the border
-                            .blur(radius: 4) // Blur to create the inner shadow effect
-                            .padding(4) // Padding to make the inner shadow look inset
-                            .blendMode(.overlay) // To enhance shadow effect
+                            .stroke(Color.gray.opacity(0.8), lineWidth: 1)
+                            .blur(radius: 4)
+                            .padding(4)
+                            .blendMode(.overlay)
                     )
                 
                 HStack {
-                    TextField("", text: $text)
-                        .textFieldStyle(.plain) // Remove default style
-                        .background(.clear) // Ensure no extra background
-                        .frame(maxWidth: .infinity, maxHeight: 55).accessibilityIdentifier("textFieldInput")
+                    TextField("", text: $text).accessibilityIdentifier("textFieldInput")
+                        .textFieldStyle(.plain)
+                        .background(.clear)
+                        .frame(maxWidth: .infinity, maxHeight: 55)
                         .padding(.horizontal, 12)
                         .focused($isActive)
-                        .onSubmit { // Trigger action when Enter is pressed
+                        .onSubmit {
                             if text != "" {
                                 sendPrompt(text, in: viewContext)
                                 text = ""
@@ -318,85 +320,62 @@ struct PromptTF: View {
                             text = ""
                         }
                     }) {
-                        Image(systemName: "paperplane.fill") // Use SF Symbol
+                        Image(systemName: "paperplane.fill")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 20, height: 20) // Adjust size
+                            .frame(width: 20, height: 20)
                             .foregroundColor(.white)
-                            .padding(.trailing, 20) // Set icon color
+                            .padding(.trailing, 20)
                     }
-                    .buttonStyle(.plain) // Removes default button styling
-                    .background(.clear) // Ensures no background
+                    .buttonStyle(.plain)
+                    .background(.clear)
                 }
             }
             .padding(.horizontal)
             
-            // Add a group of pill-shaped buttons underneath the text field
+            // Buttons underneath the text field
             HStack(spacing: 15) {
                 Button(action: {
-                    // Trigger the modal to show
                     showModelSelectionModal = true
                 }) {
                     HStack(spacing: 10) {
-                        Image(systemName: "brain") // Icon
+                        Image(systemName: "brain")
                             .font(.system(size: 13))
                             
-                        Text("model") // Label
+                        Text(selectedModel) // Display selected model
                             .font(.subheadline)
-                            
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal, 16)
-                    .background(Color("TextField")) // Background color of the pill button
-                    .cornerRadius(6) // Pill shape
-                }
+                    .background(Color("TextField").opacity(isHovered ? 0.6 : 0.3)) // Darken on hover
+                    .cornerRadius(6)
+                }.accessibilityIdentifier("ModelSelectionButton")
                 .buttonStyle(PlainButtonStyle())
+                .onHover { hovering in
+                    isHovered = hovering
+                }
+                .overlay( // Overlay ensures the popup does NOT affect layout
+                    Group {
+                        if isHovered {
+                            Text("Select model")
+                                .font(.caption)
+                                .padding(12)
+                                .background(Color("TextField"))
+                                .cornerRadius(6)
+                                .shadow(radius: 5)
+                                .offset(y: -45) // Position above the button
+                        }
+                    }
+                )
                 .sheet(isPresented: $showModelSelectionModal) {
-                    // Modal content for selecting a model
                     ModelSelectionView(isModalPresented: $showModelSelectionModal)
                 }
                 
-//                Button(action: {
-//                    print("Button 2 pressed")
-//                }) {
-//                    HStack(spacing: 10) {
-//                        Image(systemName: "heart.fill") // Icon
-//                            .font(.system(size: 18))
-//                            .foregroundColor(.red)
-//                        Text("Option 2") // Label
-//                            .font(.caption)
-//                            .foregroundColor(.red)
-//                    }
-//                    .padding(.vertical, 8)
-//                    .padding(.horizontal, 16)
-//                    .background(Color("TextField")) // Background color of the pill button
-//                    .foregroundColor(.red) // Text and icon color
-//                    .cornerRadius(6) // Pill shape
-//                }
-//                .buttonStyle(PlainButtonStyle())
-//                
-//                Button(action: {
-//                    print("Button 3 pressed")
-//                }) {
-//                    HStack(spacing: 10) {
-//                        Image(systemName: "bell.fill") // Icon
-//                            .font(.system(size: 18))
-//                            .foregroundColor(.green)
-//                        Text("Option 3") // Label
-//                            .font(.caption)
-//                            .foregroundColor(.green)
-//                    }
-//                    .padding(.vertical, 8)
-//                    .padding(.horizontal, 16)
-//                    .background(Color("TextField")) // Background color of the pill button
-//                    .foregroundColor(.green) // Text and icon color
-//                    .cornerRadius(6) // Pill shape
-//                }
-//                .buttonStyle(PlainButtonStyle())
                 Spacer()
-            } .padding(.horizontal)
-            .padding(.top, 5) // Space between the prompt bar and buttons
-            .frame(maxWidth: .infinity, alignment: .center) // Make the buttons centered
+            }
+            .padding(.horizontal)
+            .padding(.top, 5)
+            .frame(maxWidth: .infinity, alignment: .leading) // Keep everything aligned
         }
     }
     
@@ -407,7 +386,7 @@ struct PromptTF: View {
             try messageListVM.isStreaming = true
             print("\(messageListVM.isStreaming): state")
             
-            try streamingApiClient.streamResponse(for: prompt, image: nil) // Start the streaming response
+            try streamingApiClient.streamResponse(for: prompt, image: nil)
             print("✅ Streaming request sent")
             
         } catch {
@@ -420,70 +399,66 @@ struct PromptTF: View {
 struct ModelSelectionView: View {
     
     @AppStorage("model") private var selectedModel: String = "llama3"
-    let models = ["llama3", "deepseek"] // Example models list
-    @Binding var isModalPresented: Bool // To control modal visibility
+    let models = ["llama3", "deepseek-r1"] // List of available models
+    @Binding var isModalPresented: Bool
     
     var body: some View {
         ZStack {
-            // Main Content
-            VStack {
-                Button("Select Model") {
-                    isModalPresented.toggle() // Show the modal
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .frame(width: 200)
-                
-                Spacer()
-            }
-            
-            // Modal View
             if isModalPresented {
                 VStack {
-                    // Modal Background
+                    // Background overlay
                     Color.black.opacity(0.5)
                         .edgesIgnoringSafeArea(.all)
-                        .onTapGesture {
-                            isModalPresented.toggle() // Dismiss the modal on background tap
-                        }
-                    
-                    // Modal Content
+                        .onTapGesture { isModalPresented.toggle() }
+                        .accessibilityIdentifier("ModelSelectionModalBackground")
+
                     VStack {
                         Text("Select a Model")
                             .font(.title)
                             .fontWeight(.bold)
                             .padding()
-                            .foregroundColor(.blue)
-                        
-                        Picker("Choose Model", selection: $selectedModel) {
-                            ForEach(models, id: \.self) { model in
-                                Text(model)
+
+                        ScrollView {
+                            VStack {
+                                ForEach(models, id: \.self) { model in
+                                    HStack {
+                                        Text(model)
+                                            .font(.body)
+                                            .padding()
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            selectedModel = model // Update selected model
+                                            isModalPresented.toggle() // Close the modal
+                                        }) {
+                                            Text("Select")
+                                                .padding()
+                                                
+                                                .foregroundColor(.white)
+                                                .cornerRadius(8)
+                                        }
+                                        .accessibilityIdentifier("SelectModelButton_\(model)") // Add unique identifier for each button
+                                    }
+                                    .padding(.horizontal)
+                                }
                             }
                         }
-                        .pickerStyle(MenuPickerStyle())
-                        .onChange(of: selectedModel) { newValue in
-                            // Model selection is automatically handled by @AppStorage
-                            
-                            print("Selected model: \(newValue)")
-                        } // Fixed height for List
-                        
-                        // Done Button
-                        
+
+                        // Optional: Close button at the bottom of the modal
+                        Button("Close") {
+                            isModalPresented.toggle()
+                        }
+                        .padding()
                     }
-                    .frame(width: 400, height: 300) // Set a fixed size for the modal
-                    
+                    .frame(width: 400, height: 400)
                     .cornerRadius(20)
                     .shadow(radius: 10)
                 }
-                .transition(.move(edge: .bottom)) // Smooth modal transition
-                .animation(.easeInOut, value: isModalPresented) // Animate modal appearance/disappearance
             }
         }
     }
 }
-
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
