@@ -1,61 +1,253 @@
+import AVFoundation
+import Foundation
+import Speech
+import SwiftUI
+
+
+public enum ListeningState: String {
+    case idle
+    case collectingPrompt
+    case processingPrompt
+}
+
 class SpeechRecognizer: ObservableObject {
-    private let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
-    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-    private var recognitionTask: SFSpeechRecognitionTask?
-    private let audioEngine = AVAudioEngine()
-    
-    @Published var transcript: String = ""
-    
-    init() {
-        requestAuthorization()
+    @Published var voiceStatus: ListeningState = .idle  // Correct initialization here
+      init() {
+          // No need to initialize voiceStatus here anymore
+      }
+    private class SpeechAssist {
+        var audioEngine: AVAudioEngine?
+        var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+        var recognitionTask: SFSpeechRecognitionTask?
+        let speechRecognizer = SFSpeechRecognizer()
+        
+       
+        deinit {
+            reset()
+        }
+
+        func reset() {
+            recognitionTask?.cancel()
+            audioEngine?.stop()
+            audioEngine = nil
+            recognitionRequest = nil
+            recognitionTask = nil
+        }
     }
 
-    func requestAuthorization() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            DispatchQueue.main.async {
-                switch authStatus {
-                case .authorized:
-                    print("Speech recognition authorized")
-                default:
-                    print("Speech recognition not authorized")
+    private let assistant = SpeechAssist()
+
+    func record(to speech: Binding<String>, audioLevel: Binding<Double>) {
+        #if os(iOS)
+        let microphoneAuthorized = AVAudioSession.sharedInstance().recordPermission == .granted
+        let speechAuthorized = SFSpeechRecognizer.authorizationStatus() == .authorized
+        #elseif os(macOS)
+        let microphoneAuthorized = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
+        let speechAuthorized = SFSpeechRecognizer.authorizationStatus() == .authorized
+        #endif
+
+        if microphoneAuthorized && speechAuthorized {
+            // If permissions are already granted, start recording
+            startRecording(to: speech, audiolevel: audioLevel)  // Use audioLevel directly
+        } else {
+            requestMicrophonePermission { microphonePermissionGranted in
+                if microphonePermissionGranted {
+                    self.requestSpeechRecognitionPermission { speechPermissionGranted in
+                        if speechPermissionGranted {
+                            self.startRecording(to: speech, audiolevel: audioLevel)  // Use self
+                        } else {
+                            self.relay(speech, message: "Speech recognition access denied")  // Use self
+                            self.showPermissionDeniedAlert(for: .speech)  // Use self
+                        }
+                    }
+                } else {
+                    self.relay(speech, message: "Microphone access denied")  // Use self
+                    self.showPermissionDeniedAlert(for: .microphone)  // Use self
                 }
             }
         }
     }
 
-    func startTranscribing() {
-        guard let recognizer = SFSpeechRecognizer(), recognizer.isAvailable else {
-            print("Recognizer not available")
-            return
+    private func requestMicrophonePermission(completion: @escaping (Bool) -> Void) {
+        #if os(iOS)
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+            completion(granted)
+        }
+        #elseif os(macOS)
+        AVCaptureDevice.requestAccess(for: .audio) { granted in
+            completion(granted)
+        }
+        #endif
+    }
+
+    func stopRecording() {
+        assistant.reset()
+    }
+
+    private func startRecording(to speech: Binding<String>, audiolevel: Binding<Double>) {
+        assistant.audioEngine = AVAudioEngine()
+        guard let audioEngine = assistant.audioEngine else {
+            fatalError("Unable to create audio engine")
         }
 
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        let inputNode = audioEngine.inputNode
+        assistant.recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        guard let recognitionRequest = assistant.recognitionRequest else {
+            fatalError("Unable to create recognition request")
+        }
 
-        recognitionTask = recognizer.recognitionTask(with: recognitionRequest!) { result, error in
-            if let result = result {
+        recognitionRequest.shouldReportPartialResults = true
+
+        do {
+            self.relay(speech, message: "Booting audio subsystem")  // Use self
+
+            // Step 1: Configure AVAudioSession for recording
+            #if os(iOS)
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            #endif
+
+            // Step 2: Set up the audio input node and format
+            let inputNode = audioEngine.inputNode
+            self.relay(speech, message: "Found input node")  // Use self
+
+            let recordingFormat = inputNode.outputFormat(forBus: 0)
+            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
+                // Calculate the audio level (volume) from the audio buffer
+                let level = self.calculateAudioLevel(from: buffer)
+                let normalized = self.normalizedAudioLevel(from: level)
+                
+//                print("\(level) & \(normalized)")
                 DispatchQueue.main.async {
-                    self.transcript = result.bestTranscription.formattedString
+                    audiolevel.wrappedValue = Double(normalized)
+                }
+                
+                recognitionRequest.append(buffer)
+            }
+
+            self.relay(speech, message: "Preparing audio engine")  // Use self
+            audioEngine.prepare()
+            try audioEngine.start()
+
+            // Step 3: Start recognition task
+            assistant.recognitionTask = assistant.speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
+                var isFinal = false
+                if let result = result {
+                    var transcript = result.bestTranscription.formattedString
+                    self.relay(speech, message: transcript)  // Use self
+                    self.checkForHeyMerlin(in: &transcript)  // Use self
+                    self.checkForByeMerlin(in: &transcript)  // Use self
+                    isFinal = result.isFinal
+                }
+
+                if error != nil || isFinal {
+                    audioEngine.stop()
+                    inputNode.removeTap(onBus: 0)
+                    self.assistant.recognitionRequest = nil
                 }
             }
-            if error != nil {
-                self.stopTranscribing()
+        } catch {
+            print("Error transcribing audio: \(error.localizedDescription)")
+            assistant.reset()
+        }
+    }
+
+    let heyMerlinRegex = try! NSRegularExpression(pattern: #"(?i)\bHey Merlin\b"#)
+    let byeMerlinRegex = try! NSRegularExpression(pattern: #"(?i)\bGoodbye Merlin\b"#)
+    
+    func checkForHeyMerlin(in transcript: inout String) {
+        let range = NSRange(transcript.startIndex..., in: transcript)
+        if heyMerlinRegex.firstMatch(in: transcript, options: [], range: range) != nil {
+            voiceStatus = .collectingPrompt  // Switch to collectingPrompt state
+            print("🔊 Detected 'Hey Merlin'. Switched to collectingPrompt state.")
+        }
+    }
+
+    func checkForByeMerlin(in transcript: inout String) {
+        let range = NSRange(transcript.startIndex..., in: transcript)
+        if byeMerlinRegex.firstMatch(in: transcript, options: [], range: range) != nil {
+            voiceStatus = .processingPrompt  // Switch to processingPrompt state
+            resetSystemForNextActivation()
+            print("🔊 Detected 'Goodbye Merlin'. Switched to processingPrompt state.")
+        }
+    }
+    
+    func stopAndRestartRecording(to speech: Binding<String>, audiolevel: Binding<Double>, delay: TimeInterval = 1.0) {
+        stopRecording()  // Stop the current recording
+
+        // Wait for the specified delay and restart the recording
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.startRecording(to: speech, audiolevel: audiolevel)  // Restart the recording
+        }
+    }
+    private func resetSystemForNextActivation() {
+        // Reset any necessary components here to make the system ready for the next "Hey Merlin"
+        
+        assistant.reset()  // Reset the assistant
+        voiceStatus = .idle  // Set the voice status back to idle
+        print("🔄 System reset. Ready to listen for the next 'Hey Merlin'.")
+    }
+    
+    func normalizedAudioLevel(from decibels: Float) -> Float {
+        let minDb: Float = -80
+        let maxDb: Float = -20
+        let clamped = max(min(decibels, maxDb), minDb)  // Clamp to valid range
+        return (clamped - minDb) / (maxDb - minDb)       // Normalize to 0...1
+    }
+
+    // Helper method to calculate audio level
+    private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {
+        let channelCount = buffer.format.channelCount
+        let frameCount = buffer.frameLength
+        let channelData = buffer.floatChannelData!
+
+        var totalAmplitude: Float = 0.0
+        for channel in 0..<Int(channelCount) {
+            let channelDataPointer = channelData[channel]
+            for frame in 0..<Int(frameCount) {
+                totalAmplitude += abs(channelDataPointer[frame])
             }
         }
 
-        let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-            self.recognitionRequest?.append(buffer)
-        }
+        let averageAmplitude = totalAmplitude / Float(Int(frameCount) * Int(channelCount))
 
-        audioEngine.prepare()
-        try? audioEngine.start()
+        // Optionally convert the amplitude to a decibel value if needed
+        let audioLevel = 20 * log10(averageAmplitude)
+
+        return audioLevel
     }
 
-    func stopTranscribing() {
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
-        recognitionRequest?.endAudio()
-        recognitionTask?.cancel()
+    private func requestSpeechRecognitionPermission(completion: @escaping (Bool) -> Void) {
+        SFSpeechRecognizer.requestAuthorization { status in
+            completion(status == .authorized)
+        }
+    }
+
+    enum PermissionType {
+        case microphone
+        case speech
+    }
+
+    private func showPermissionDeniedAlert(for type: PermissionType) {
+        #if os(macOS)
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = "\(type == .microphone ? "Microphone" : "Speech Recognition") Access Denied"
+            alert.informativeText = "Please enable it in System Settings."
+            alert.addButton(withTitle: "Open Settings")
+            alert.addButton(withTitle: "Cancel")
+            if alert.runModal() == .alertFirstButtonReturn,
+               let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_\(type == .microphone ? "Microphone" : "SpeechRecognition")") {
+                NSWorkspace.shared.open(url)
+            }
+        }
+        #endif
+        // On iOS, typically we handle this by presenting a UI alert or redirecting the user
+    }
+
+    private func relay(_ binding: Binding<String>, message: String) {
+        DispatchQueue.main.async {
+            binding.wrappedValue = message
+        }
     }
 }

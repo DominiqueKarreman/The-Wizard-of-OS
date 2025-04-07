@@ -1,5 +1,5 @@
 {
-  "originHash" : "5e89b70cdfa4bfff2673ba0ac6f1deb07e6a5e5e79b420ccbe98e46e967a5a6e",
+  "originHash" : "92be620b3944c01bdd586803c5a00c9872164e6a9c06988246550f9fb82f0219",
   "pins" : [
     {
       "identity" : "highlightr",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "b6ff6a0c75a3756450cfb38074f6264be1314abc",
         "version" : "5.0.8"
+      }
+    },
+    {
+      "identity" : "siriwaveview",
+      "kind" : "localSourceControl",
+      "location" : "/Users/domi/Library/Developer/Xcode/DerivedData/XCAAiAssistant-czouefgkaatdoyeutrfwkiumsfhp/SourcePackages/checkouts/SiriWaveView",
+      "state" : {
+        "revision" : "711287cd8d6ef16b5dbcced5ead82d93d0cb3c88",
+        "version" : "1.1.0"
       }
     }
   ],

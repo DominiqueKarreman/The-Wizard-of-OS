@@ -12,6 +12,7 @@ struct tempMessage: Identifiable {
     var id: UUID
     var message: String
     var sender: String
+    var clipboardContext: String
     var timestamp: Date
     var thinkingContent: String
 }
@@ -20,10 +21,11 @@ struct tempMessage: Identifiable {
 
 
 extension Message {
-    convenience init(message: String, sender: String, timestamp: Date = Date(), context: NSManagedObjectContext, thinkingContent:String? ) {
+    convenience init(message: String, sender: String, timestamp: Date = Date(), context: NSManagedObjectContext, thinkingContent:String?, clipbloardContext:String ) {
         self.init(context: context)
         self.id = UUID()
         self.message = message
+        self.clipboardContext = clipboardContext
         self.sender = sender
         self.timestamp = timestamp
         self.thinkingContent = thinkingContent

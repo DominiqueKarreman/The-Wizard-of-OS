@@ -29,7 +29,26 @@ final class The_Wizard_of_OSUITests: XCTestCase {
         let lastMessage = app.staticTexts["Hello, Merlin!"]
         XCTAssertTrue(lastMessage.exists, "The sent prompt should appear in the message list view")
     }
-
+    func testOfflineButtonToggle() {
+        let offlineButton = app.buttons["OfflineButton"]
+        XCTAssertTrue(offlineButton.exists)
+        
+        // Initially, the button should contain "Online" text
+        XCTAssertTrue(offlineButton.label.contains("Online"))
+        
+        // Tap the button to toggle the state to "Offline"
+        offlineButton.tap()
+        
+        // Verify that the button label has changed to "Offline"
+        XCTAssertTrue(offlineButton.label.contains("Offline"))
+        
+        // Tap the button again to toggle back to "Online"
+        offlineButton.tap()
+        
+        // Verify that the button label has changed back to "Online"
+        XCTAssertTrue(offlineButton.label.contains("Online"))
+    }
+    
     func testModelSelectionWithList() {
         let app = XCUIApplication()
         app.launch()

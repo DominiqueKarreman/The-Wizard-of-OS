@@ -169,6 +169,7 @@ class ChatMessageListViewModel: ObservableObject {
     @Published var isStreaming: Bool = false
     @State var thinkingContent: String = ""
     
+    
     private var context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
@@ -177,6 +178,7 @@ class ChatMessageListViewModel: ObservableObject {
         fetchMessages() // Fetch initial messages when the ViewModel is initialized
     }
 
+    
     // Fetch messages from Core Data and update the messages array
     func fetchMessages() {
         let fetchRequest: NSFetchRequest<Message> = Message.fetchRequest()
@@ -193,14 +195,14 @@ class ChatMessageListViewModel: ObservableObject {
 
     // Add an error message to the messages array
     func handleError(_ message: String) {
-        let errorMessage = Message(message: message, sender: "Error", context: context, thinkingContent: "")
+        let errorMessage = Message(message: message, sender: "Error", context: context, thinkingContent: "", clipbloardContext: "")
         self.messages.append(errorMessage)
         print("🚨 Error: \(message)") // Optional: For debugging
     }
 
     // Add an error message
     func addErrorMessage(_ message: String) {
-        let errorMessage = Message(message: message, sender: "Error", context: context, thinkingContent: "")
+        let errorMessage = Message(message: message, sender: "Error", context: context, thinkingContent: "", clipbloardContext: "")
         self.messages.append(errorMessage)
     }
 
@@ -223,26 +225,34 @@ class ChatMessageListViewModel: ObservableObject {
 //        messages.append(newMessageObj)
 //    }
     
+    @AppStorage("clipboardContext") var clipboardContext: Bool = false
+    @AppStorage("currentClipboard") var currentClipboard: String = ""
+
     func addMessage(message: String, sender: String) {
-            // Save to CoreData
-            let newMessage = Message(context: context)
-            newMessage.message = message
-            newMessage.id = UUID()
-            newMessage.sender = sender
-            newMessage.timestamp = Date()
-            
-            do {
-                try context.save()
-                fetchMessages()  // Re-fetch and update messages
-            } catch {
-                print("Error saving message: \(error)")
-            }
+        // Save to CoreData
+        let newMessage = Message(context: context)
+        newMessage.message = message
+        newMessage.id = UUID()
+        newMessage.sender = sender
+        newMessage.timestamp = Date()
+        
+        // If clipboardContext is true, assign clipboard to the message
+        if clipboardContext {
+            newMessage.clipboardContext = currentClipboard
         }
+
+        do {
+            try context.save()
+            fetchMessages()  // Re-fetch and update messages
+        } catch {
+            print("Error saving message: \(error)")
+        }
+    }
     
     func addTempMessage(){
         DispatchQueue.main.async {
             print("zovaak")
-            self.tempAssistantMessage = tempMessage(id: UUID(), message: "", sender: "MerlinTEMP", timestamp: Date(), thinkingContent: "")
+            self.tempAssistantMessage = tempMessage(id: UUID(), message: "", sender: "MerlinTEMP", clipboardContext: "", timestamp: Date(), thinkingContent: "")
         }
     }
     
@@ -256,7 +266,7 @@ class ChatMessageListViewModel: ObservableObject {
         let assistantMessage = Message(
             message: "", // Initialize with an empty message
             sender: "Merlin", // Set the sender to "Assistant"
-            context: context, thinkingContent: ""
+            context: context, thinkingContent: "", clipbloardContext: ""
         )
         
         // Append the new assistant message to the messages array
@@ -270,7 +280,7 @@ class ChatMessageListViewModel: ObservableObject {
         let userMessage = Message(
             message: message, // Initialize with the user message
             sender: "User", // Set the sender to "User"
-            context: context, thinkingContent: ""
+            context: context, thinkingContent: "", clipbloardContext: ""
         )
         
         // Append the new user message to the messages array

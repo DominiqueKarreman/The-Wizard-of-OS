@@ -1,29 +1,41 @@
-//
-//  iOSMainTabView.swift
-//  The Wizard of OS
-//
-//  Created by Dominique Karreman on 3/26/25.
-//
 import SwiftUI
 
 struct iOSMainTabView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var selectedTab = 0  // Track selected tab
+
     var body: some View {
-        TabView {
-            ContentView() .environment(\.managedObjectContext, viewContext)
+        TabView(selection: $selectedTab) {
+            ContentView()
+                .environment(\.managedObjectContext, viewContext)
                 .tabItem {
-                    Label("Home", systemImage: "house")
+                    VStack {
+                        Image(systemName: "person.bubble.fill")
+                        Text("Merlin")
+                            .foregroundColor(selectedTab == 0 ? .white : .gray) // Change text color
+                    }
                 }
-            
-            CalendarView()
+                .tag(0)
+
+            SpeechView()
                 .tabItem {
-                    Label("Messages", systemImage: "message")
+                    VStack {
+                        Image(systemName: "microphone")
+                        Text("Voice mode")
+                            .foregroundColor(selectedTab == 1 ? .white : .gray)
+                    }
                 }
+                .tag(1)
 
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gear")
+                    VStack {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                            .foregroundColor(selectedTab == 2 ? .white : .gray)
+                    }
                 }
+                .tag(2)
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F621C5D82DA3C5080099E8B1 /* SiriWaveView */; };
 		F651E5F62D835034009590CC /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = F651E5F52D835034009590CC /* Highlightr */; };
 		F670FA6E2D8346A90004B7BC /* OllamaKit in Frameworks */ = {isa = PBXBuildFile; productRef = F670FA6D2D8346A90004B7BC /* OllamaKit */; };
 		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
@@ -40,9 +41,7 @@
 		F6A2FF832D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
 				Models/ViewModels/test.swift,
-				Services/WizardOfOsDataModel.xcdatamodeld,
 			);
 			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
 		};
@@ -65,13 +64,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		F6A2FF842D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Compile Sources" phase from "The Wizard of OS" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = F60CCD082D79DE960086399F /* Sources */;
-			membershipExceptions = (
-				Services/WizardOfOsDataModel.xcdatamodeld,
-			);
-		};
 		F6A2FF852D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = F60CCD0A2D79DE960086399F /* Resources */;
@@ -86,7 +78,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				F6A2FF832D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */,
-				F6A2FF842D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Compile Sources" phase from "The Wizard of OS" target */,
 				F6A2FF852D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */,
 			);
 			path = "The Wizard of OS";
@@ -115,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */,
 				F651E5F62D835034009590CC /* Highlightr in Frameworks */,
 				F670FA6E2D8346A90004B7BC /* OllamaKit in Frameworks */,
 			);
@@ -188,6 +180,7 @@
 			packageProductDependencies = (
 				F670FA6D2D8346A90004B7BC /* OllamaKit */,
 				F651E5F52D835034009590CC /* Highlightr */,
+				F621C5D82DA3C5080099E8B1 /* SiriWaveView */,
 			);
 			productName = "The Wizard of OS";
 			productReference = F60CCD0C2D79DE960086399F /* The Wizard of OS.app */;
@@ -240,6 +233,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
@@ -268,6 +264,7 @@
 			packageReferences = (
 				F670FA652D8344F80004B7BC /* XCRemoteSwiftPackageReference "OllamaKit" */,
 				F651E5F42D835029009590CC /* XCRemoteSwiftPackageReference "Highlightr" */,
+				F621C5D72DA3C4D30099E8B1 /* XCRemoteSwiftPackageReference "SiriWaveView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F60CCD0D2D79DE960086399F /* Products */;
@@ -475,6 +472,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-Wizard-of-OS-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app uses your microphone to record voice input.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to turn your voice into text.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -507,7 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "The Wizard of OS/The_Wizard_of_OS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "The Wizard of OS/The Wizard of OSRelease.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -517,6 +517,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-Wizard-of-OS-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app uses your microphone to record voice input.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to turn your voice into text.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -676,6 +679,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F621C5D72DA3C4D30099E8B1 /* XCRemoteSwiftPackageReference "SiriWaveView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "/Users/domi/Library/Developer/Xcode/DerivedData/XCAAiAssistant-czouefgkaatdoyeutrfwkiumsfhp/SourcePackages/checkouts/SiriWaveView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		F651E5F42D835029009590CC /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/raspu/Highlightr.git";
@@ -695,6 +706,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F621C5D82DA3C5080099E8B1 /* SiriWaveView */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SiriWaveView;
+		};
 		F651E5F52D835034009590CC /* Highlightr */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F651E5F42D835029009590CC /* XCRemoteSwiftPackageReference "Highlightr" */;

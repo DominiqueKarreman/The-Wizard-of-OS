@@ -1,3 +1,11 @@
+//
+//  VoiceType.swift
+//  The Wizard of OS
+//
+//  Created by Dominique Karreman on 4/7/25.
+//
+
+
 
 import Foundation
 

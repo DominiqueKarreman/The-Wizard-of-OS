@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSSpeechRecognitionUsageDescription</key>
+		<string>This app uses speech recognition to turn your voice into text.</string>
+		<key>Privacy - Microphone Usage Description</key>
+		<string>We need the mic to record sound for voice rec</string>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

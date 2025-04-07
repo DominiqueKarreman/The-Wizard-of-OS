@@ -1,3 +1,12 @@
+
+//
+//  ViewModel.swift
+//  The Wizard of OS
+//
+//  Created by Dominique Karreman on 4/7/25.
+//
+
+
 //
 //  ViewModel.swift
 //  XCAAiAssistant
@@ -8,12 +17,12 @@
 import AVFoundation
 import Foundation
 import Observation
-import XCAOpenAIClient
+//import XCAOpenAIClient
 
 @Observable
-class ViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class SpeechViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
-    let client = OpenAIClient(apiKey: "YOUR_API_KEY")
+    
     var audioPlayer: AVAudioPlayer!
     var audioRecorder: AVAudioRecorder!
     #if !os(macOS)
@@ -62,7 +71,7 @@ class ViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             
             AVAudioApplication.requestRecordPermission { [unowned self] allowed in
                 if !allowed {
-                    self.state = .error("Recording not allowed by the user")
+                    self.state = .error("Recording not allowed by the user" as! Error)
                 }
             }
         } catch {
@@ -129,17 +138,17 @@ class ViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         Task { @MainActor [unowned self] in
             do {
                 self.state = .processingSpeech
-                let prompt = try await client.generateAudioTransciptions(audioData: audioData)
+//                let prompt = try await client.generateAudioTransciptions(audioData: audioData)
                 
                 try Task.checkCancellation()
-                let responseText = try await client.promptChatGPT(prompt: prompt)
+//                let responseText = try await client.promptChatGPT(prompt: prompt)
+                
+//                try Task.checkCancellation()
+//                let data = try await client.generateSpeechFrom(input: responseText, voice: 
+//                        .init(rawValue: selectedVoice.rawValue) ?? .alloy)
                 
                 try Task.checkCancellation()
-                let data = try await client.generateSpeechFrom(input: responseText, voice: 
-                        .init(rawValue: selectedVoice.rawValue) ?? .alloy)
-                
-                try Task.checkCancellation()
-                try self.playAudio(data: data)
+//                try self.playAudio(data: data)
             } catch {
                 if Task.isCancelled { return }
                 state = .error(error)

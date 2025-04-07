@@ -10,6 +10,7 @@ struct MessageRow: View {
     let setHoveredMessage: (UUID?) -> Void
     
     @State private var isThinkingModalPresented: Bool = false
+    @State private var clipboardModalPresented: Bool = false
     
     var body: some View {
         VStack(alignment: .trailing, spacing: 5) {
@@ -73,6 +74,18 @@ struct MessageRow: View {
                         .foregroundColor(.gray)
                 }
                 .buttonStyle(PlainButtonStyle())
+                if let clipboardContext = message?.clipboardContext, !clipboardContext.isEmpty {
+                    Button(action: {
+                        // Show the modal when the button is pressed
+                        
+                        clipboardModalPresented.toggle()
+                    }) {
+                        Image(systemName: "contextualmenu.and.cursorarrow")
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }.buttonStyle(PlainButtonStyle())
+                    
+                }
                 if let thinkingContent = message?.thinkingContent, !thinkingContent.isEmpty {
                     Button(action: {
                         // Show the modal when the button is pressed
@@ -110,6 +123,30 @@ struct MessageRow: View {
             setHoveredMessage(hovering ? message?.id : nil)
         }
         // Modal for thinking content
+        .sheet(isPresented: $clipboardModalPresented) {
+            VStack(alignment: .leading) {
+                Text("Clipboard Context")
+                    .font(.headline)
+                    .padding()
+
+                ScrollView {
+                    Text(message?.clipboardContext ?? "")
+                        .font(.body)
+                        .padding()
+                }
+
+                Button("Close") {
+                    clipboardModalPresented.toggle()
+                }
+                .padding()
+                
+                .foregroundColor(.white)
+                .cornerRadius(8)
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("TextField"))
+        }
         .sheet(isPresented: $isThinkingModalPresented) {
             VStack {
                 Text("Thinking Content")
@@ -126,7 +163,7 @@ struct MessageRow: View {
                     isThinkingModalPresented.toggle() // Close modal
                 }
                 .padding()
-                .background(Color.blue)
+                
                 .foregroundColor(.white)
                 .cornerRadius(8)
             }

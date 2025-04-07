@@ -11,13 +11,14 @@ import UserNotifications
 import CloudKit
 
 struct APIConstants {
-    static let baseURL = "https://f145-145-44-52-221.ngrok-free.app"
+    static let baseURL = "https://788e-2a02-a44f-108f-0-f0ab-af77-ff42-ce31.ngrok-free.app"
 }
-
 @available(macOS 15.0, *)
 @main
 struct TheWizardOfOSApp: App {
     let persistenceController = PersistenceController.shared
+
+    @AppStorage("voiceModeActive") var voiceModeActive: Bool = false // Store voice mode state
 
     var body: some Scene {
         #if os(macOS)
@@ -28,11 +29,24 @@ struct TheWizardOfOSApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .commands {
+            @AppStorage("clipboardContext") var clipboardContext: Bool = false
+
             CommandGroup(after: .sidebar) {
                 Button("Toggle Sidebar") {
                     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
                 }
-                .keyboardShortcut("s", modifiers: .command) // ⌘B for macOS
+                .keyboardShortcut("s", modifiers: .command)
+
+                Button("Toggle Clipboard Context") {
+                    clipboardContext.toggle()
+                }
+                .keyboardShortcut("k", modifiers: .command)
+
+                // Add keyboard shortcut to toggle voice mode
+                Button("Toggle Voice Mode") {
+                    voiceModeActive.toggle()
+                }
+                .keyboardShortcut("v", modifiers: [.command, .shift]) // Change "v" to your preferred key
             }
         }
         .windowStyle(.hiddenTitleBar) // Hide title bar in macOS
@@ -45,7 +59,6 @@ struct TheWizardOfOSApp: App {
         #endif
     }
 }
-
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

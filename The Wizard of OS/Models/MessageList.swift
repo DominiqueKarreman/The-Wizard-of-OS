@@ -16,7 +16,7 @@ class MessageListModel {
     }
 
     func addMessage(message: String, sender: String) {
-        let newMessage = Message(message: message, sender: sender, context: context, thinkingContent: "")
+        let newMessage = Message(message: message, sender: sender, context: context, thinkingContent: "", clipbloardContext: "")
 //        modelContext.insert(newMessage) // Save to CloudKit-backed SwiftData
         
         try? modelContext.save()  // Persist the change

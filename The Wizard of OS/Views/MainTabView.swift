@@ -17,9 +17,10 @@ struct MainTabView: View {
                             
                     }
 
-                    NavigationLink(destination: CalendarView()) {
-                        Label(" Calendar", systemImage: "calendar").font(.title)
+                    NavigationLink(destination: SpeechView()) {
+                        Label(" Voice mode", systemImage: "microphone").font(.title)
                     }
+                   
 
                     NavigationLink(destination: SettingsView()) {
                         Label(" Settings", systemImage: "gearshape.fill").font(.title)
