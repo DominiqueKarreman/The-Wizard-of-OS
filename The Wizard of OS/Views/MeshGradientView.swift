@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(macOS 15.0, *)
 struct MeshGradientView: View {
     @Binding var maskTimer: Float
     @Binding var gradientSpeed: Float
@@ -45,9 +44,5 @@ struct MeshGradientView: View {
 }
 
 #Preview {
-    if #available(macOS 15.0, *) {
-        MeshGradientView(maskTimer: .constant(0.0), gradientSpeed: .constant(0.05))
-    } else {
-        // Fallback on earlier versions
-    }
+    MeshGradientView(maskTimer: .constant(0.0), gradientSpeed: .constant(0.05))
 }
