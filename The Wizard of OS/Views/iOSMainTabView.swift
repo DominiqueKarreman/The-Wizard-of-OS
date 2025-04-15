@@ -17,15 +17,6 @@ struct iOSMainTabView: View {
                 }
                 .tag(0)
 
-            SpeechView()
-                .tabItem {
-                    VStack {
-                        Image(systemName: "microphone")
-                        Text("Voice mode")
-                            .foregroundColor(selectedTab == 1 ? .white : .gray)
-                    }
-                }
-                .tag(1)
 
             SettingsView()
                 .tabItem {

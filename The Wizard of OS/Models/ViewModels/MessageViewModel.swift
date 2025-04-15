@@ -164,10 +164,13 @@ class MessageViewModel: ObservableObject {
 
 class ChatMessageListViewModel: ObservableObject {
     @Published var messages: [Message] = []
+    @Published var voiceMessages: [Message] = []
     @Published var isThinking: Bool = false
     @Published var tempAssistantMessage: tempMessage?
+    @Published var tempVoiceAssistantMessage: tempMessage?
     @Published var isStreaming: Bool = false
     @State var thinkingContent: String = ""
+    var streamingApiClient: StreamingAPIClient!
     
     
     private var context: NSManagedObjectContext
@@ -178,6 +181,21 @@ class ChatMessageListViewModel: ObservableObject {
         fetchMessages() // Fetch initial messages when the ViewModel is initialized
     }
 
+    public func sendPrompt(_ prompt: String, in context: NSManagedObjectContext) {
+        do {
+            try self.addMessage(message: prompt, sender: "User", mode: nil )
+            try self.isStreaming = true
+            print("\(self.isStreaming): state")
+            
+            try streamingApiClient.streamResponse(for: prompt, image: nil, mode: .voice)
+            print("✅ Streaming request sent")
+            
+            
+        } catch {
+            print("❌ Error sending prompt: \(error.localizedDescription)")
+        }
+    
+}
     
     // Fetch messages from Core Data and update the messages array
     func fetchMessages() {
@@ -228,8 +246,9 @@ class ChatMessageListViewModel: ObservableObject {
     @AppStorage("clipboardContext") var clipboardContext: Bool = false
     @AppStorage("currentClipboard") var currentClipboard: String = ""
 
-    func addMessage(message: String, sender: String) {
+    func addMessage(message: String, sender: String, mode: String?) {
         // Save to CoreData
+        
         let newMessage = Message(context: context)
         newMessage.message = message
         newMessage.id = UUID()
@@ -240,7 +259,9 @@ class ChatMessageListViewModel: ObservableObject {
         if clipboardContext {
             newMessage.clipboardContext = currentClipboard
         }
-
+        if mode == "voice" {
+            self.voiceMessages.append(newMessage)
+        }
         do {
             try context.save()
             fetchMessages()  // Re-fetch and update messages
@@ -251,13 +272,24 @@ class ChatMessageListViewModel: ObservableObject {
     
     func addTempMessage(){
         DispatchQueue.main.async {
-            print("zovaak")
+            
             self.tempAssistantMessage = tempMessage(id: UUID(), message: "", sender: "MerlinTEMP", clipboardContext: "", timestamp: Date(), thinkingContent: "")
         }
+    }
+    func addVoiceTempMessage(){
+        print("creating temp message")
+        DispatchQueue.main.async {
+            self.tempVoiceAssistantMessage = tempMessage(id: UUID(), message: "", sender: "MerlinVoiceTEMP", clipboardContext: "", timestamp: Date(), thinkingContent: "")
+        }
+        print(tempVoiceAssistantMessage, "tempVoiceAssistantMessage")
     }
     
     func resetTempMessage(){
         self.tempAssistantMessage = nil
+        self.thinkingContent = ""
+    }
+    func resetTempVoiceMessage(){
+        self.tempVoiceAssistantMessage = nil
         self.thinkingContent = ""
     }
 

@@ -3,7 +3,6 @@ import Foundation
 import Speech
 import SwiftUI
 
-
 public enum ListeningState: String {
     case idle
     case collectingPrompt
@@ -11,10 +10,25 @@ public enum ListeningState: String {
 }
 
 class SpeechRecognizer: ObservableObject {
+    @AppStorage("voicePromptMode") private var voicePromptMode: String = "button"
+    @AppStorage("pauseDuration") private var pauseDuration: Double = 2
+    private var lastSpokenDate: Date?
+    private var pauseTimer: Timer?
+    
+    private var context: NSManagedObjectContext
+    var sendPromptAction: ((String, NSManagedObjectContext) -> Void)?
+
+    // Existing properties and methods
+    
+    // Modify the init method to accept the context
+    init(context: NSManagedObjectContext, sendPromptAction: ((String, NSManagedObjectContext) -> Void)? = nil) {
+        self.context = context
+        self.sendPromptAction = sendPromptAction
+    }
+    
     @Published var voiceStatus: ListeningState = .idle  // Correct initialization here
-      init() {
-          // No need to initialize voiceStatus here anymore
-      }
+    
+    
     private class SpeechAssist {
         var audioEngine: AVAudioEngine?
         var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -81,6 +95,9 @@ class SpeechRecognizer: ObservableObject {
     }
 
     func stopRecording() {
+        pauseTimer?.invalidate()
+        pauseTimer = nil
+        voiceStatus = .idle
         assistant.reset()
     }
 
@@ -132,12 +149,28 @@ class SpeechRecognizer: ObservableObject {
             // Step 3: Start recognition task
             assistant.recognitionTask = assistant.speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
                 var isFinal = false
-                if let result = result {
+                if var result = result {
                     var transcript = result.bestTranscription.formattedString
                     self.relay(speech, message: transcript)  // Use self
-                    self.checkForHeyMerlin(in: &transcript)  // Use self
-                    self.checkForByeMerlin(in: &transcript)  // Use self
+                    
+                    if self.voicePromptMode == "pause" && self.voiceStatus == .collectingPrompt {
+                        self.lastSpokenDate = Date()
+                        self.pauseTimer?.invalidate()
+                        self.pauseTimer = Timer.scheduledTimer(withTimeInterval: self.pauseDuration, repeats: false) { _ in
+                            guard let lastDate = self.lastSpokenDate, Date().timeIntervalSince(lastDate) >= self.pauseDuration else { return }
+
+                            DispatchQueue.main.async {
+                                self.handleFinishedPrompt(transcript: transcript, speech: speech, audioLevel: audiolevel)
+                                print("🕒 Auto-handled prompt after \(self.pauseDuration)s of silence.")
+                            }
+                        }
+                    }
+                    
+                    self.checkForByeMerlin(in: &transcript, speech: speech, result: &result, audioLevel: audiolevel)  // Use self
+                    self.checkForHeyMerlin(in: &transcript, speech: speech, result: &result)  // Use self
+                    
                     isFinal = result.isFinal
+                    print("this is now the transcript: \(transcript)")
                 }
 
                 if error != nil || isFinal {
@@ -155,20 +188,66 @@ class SpeechRecognizer: ObservableObject {
     let heyMerlinRegex = try! NSRegularExpression(pattern: #"(?i)\bHey Merlin\b"#)
     let byeMerlinRegex = try! NSRegularExpression(pattern: #"(?i)\bGoodbye Merlin\b"#)
     
-    func checkForHeyMerlin(in transcript: inout String) {
+    func checkForHeyMerlin(in transcript: inout String, speech: Binding<String>, result: inout SFSpeechRecognitionResult) {
+        guard voiceStatus == .idle else { return }
         let range = NSRange(transcript.startIndex..., in: transcript)
         if heyMerlinRegex.firstMatch(in: transcript, options: [], range: range) != nil {
-            voiceStatus = .collectingPrompt  // Switch to collectingPrompt state
+            voiceStatus = .collectingPrompt
+            transcript = ""
+            result = SFSpeechRecognitionResult()
+            self.relay(speech, message:"")
+
+            
             print("🔊 Detected 'Hey Merlin'. Switched to collectingPrompt state.")
+            transcript = "" // Clear transcript immediately to avoid retriggers
         }
     }
 
-    func checkForByeMerlin(in transcript: inout String) {
+    func checkForByeMerlin(in transcript: inout String, speech: Binding<String>, result: inout SFSpeechRecognitionResult, audioLevel: Binding<Double>) {
+        guard voiceStatus == .collectingPrompt else { return }
         let range = NSRange(transcript.startIndex..., in: transcript)
         if byeMerlinRegex.firstMatch(in: transcript, options: [], range: range) != nil {
-            voiceStatus = .processingPrompt  // Switch to processingPrompt state
-            resetSystemForNextActivation()
-            print("🔊 Detected 'Goodbye Merlin'. Switched to processingPrompt state.")
+            if let match = heyMerlinRegex.firstMatch(in: transcript, options: [], range: range) {
+                let afterMatchIndex = transcript.index(transcript.startIndex, offsetBy: match.range.upperBound)
+                transcript = String(transcript[afterMatchIndex...]).trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            result = SFSpeechRecognitionResult()
+            handleFinishedPrompt(transcript: transcript, speech: speech, audioLevel: audioLevel)
+            transcript = ""
+        }
+    }
+
+    public func handleFinishedPrompt(transcript: String, speech: Binding<String>, audioLevel: Binding<Double>) {
+        voiceStatus = .processingPrompt
+
+        var cleanedTranscript = transcript
+        let range = NSRange(cleanedTranscript.startIndex..., in: cleanedTranscript)
+        if let heyMatch = heyMerlinRegex.firstMatch(in: cleanedTranscript, options: [], range: range) {
+            let afterHeyIndex = cleanedTranscript.index(cleanedTranscript.startIndex, offsetBy: heyMatch.range.upperBound)
+            cleanedTranscript = String(cleanedTranscript[afterHeyIndex...]).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+        // if let match = byeMerlinRegex.firstMatch(in: cleanedTranscript, options: [], range: range) {
+        //     let beforeByeIndex = cleanedTranscript.index(cleanedTranscript.startIndex, offsetBy: match.range.lowerBound)
+        //     cleanedTranscript = String(cleanedTranscript[..<beforeByeIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
+        // }
+
+        sendPromptAction?(cleanedTranscript, context)
+        print("sending prompt, cleaned transcript: \(cleanedTranscript)")
+        self.relay(speech, message: "")
+
+        if let audioEngine = assistant.audioEngine, audioEngine.isRunning {
+            audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0)
+        }
+
+        assistant.reset()
+
+        print("🔊 Detected 'Goodbye Merlin'. Switched to processingPrompt state. transcript: \(cleanedTranscript)")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.voiceStatus = .idle
+            self.record(to: speech, audioLevel: audioLevel)
         }
     }
     
@@ -184,7 +263,7 @@ class SpeechRecognizer: ObservableObject {
         // Reset any necessary components here to make the system ready for the next "Hey Merlin"
         
         assistant.reset()  // Reset the assistant
-        voiceStatus = .idle  // Set the voice status back to idle
+//        voiceStatus = .idle  // Set the voice status back to idle
         print("🔄 System reset. Ready to listen for the next 'Hey Merlin'.")
     }
     

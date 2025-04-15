@@ -22,6 +22,7 @@ typealias PlatformImage = NSImage
 
 class StreamingAPIClient: NSObject, URLSessionDataDelegate {
     private var dataTask: URLSessionDataTask?
+    var voiceStatus: ListeningState?
     weak var chatMessageVM: ChatMessageViewModel?
     weak var chatMessageListVM: ChatMessageListViewModel?
     private let context: NSManagedObjectContext
@@ -39,17 +40,22 @@ class StreamingAPIClient: NSObject, URLSessionDataDelegate {
         // Start monitoring network status
         
     }
-
-    // Network Monitoring Method
-    
-
     enum StreamResponseError: Error {
         case invalidURL
         case jsonEncodingFailed(Error)
         case streamError(String)
     }
-
-    func streamResponse(for prompt: String, image: PlatformImage?) {
+    public enum Modes: String {
+        case text
+        case voice
+    }
+    public var currentMode: Modes = .text
+    
+    func streamResponse(for prompt: String, image: PlatformImage?, mode: Modes = .text) {
+        print("mode is \(mode)")
+        self.currentMode = mode
+        
+        print("in streamResponse for \(self.currentMode)")
         let baseURL = offline ? "http://localhost:11434/api/generate" : "\(APIConstants.baseURL)/prompt/text"
         guard let url = URL(string: baseURL) else {
             self.handleError(.invalidURL)
@@ -97,11 +103,6 @@ class StreamingAPIClient: NSObject, URLSessionDataDelegate {
                 let model = UserDefaults.standard.string(forKey: "model") ?? "default_model"
                 let clipboardContext = UserDefaults.standard.bool(forKey: "clipboardContext") // Directly read from UserDefaults
                 var clipboard = UserDefaults.standard.string(forKey: "currentClipboard") ?? ""
-//                if !clipboardContext {
-//                    clipboard = ""
-//                }
-                
-                print("clipboard context: \(clipboardContext) and content: \(clipboard)")
                 
                 let json: [String: Any] = ["prompt": prompt, "recall": recall, "model": model, "clipboard": clipboard, "clipboardContext": clipboardContext]
 
@@ -117,12 +118,22 @@ class StreamingAPIClient: NSObject, URLSessionDataDelegate {
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         dataTask = session.dataTask(with: request)
         dataTask?.resume()
-        chatMessageListVM?.addTempMessage()
+        DispatchQueue.main.async {
+            
+            
+            if mode == .text {
+                print("in streamResponse for text: \(self.currentMode)")
+                self.chatMessageListVM?.addTempMessage()
+            }
+            if mode == .voice {
+                self.chatMessageListVM?.addVoiceTempMessage()
+            }
+        }
     }
 
     @MainActor func updateChunks(_ chunk: String) {
-        guard let chatMessageListVM = chatMessageListVM else { return }
 
+        guard let chatMessageListVM = chatMessageListVM else { return }
         if offline {
             // 🟢 Ollama JSON Parsing
             if let jsonData = chunk.data(using: .utf8),
@@ -130,14 +141,18 @@ class StreamingAPIClient: NSObject, URLSessionDataDelegate {
                let responseText = responseDict["response"] as? String {
                 
                 DispatchQueue.main.async {
-                    chatMessageListVM.tempAssistantMessage?.message += responseText
+                    if self.currentMode == .text {
+                        chatMessageListVM.tempVoiceAssistantMessage?.message += responseText
+                       
+                    }
+                    
+                    if self.currentMode == .voice {
+                        print("contents: \(chatMessageListVM.tempVoiceAssistantMessage?.message ?? "")")
+                        chatMessageListVM.tempVoiceAssistantMessage?.message += responseText
+                    }
+                    
                 }
 
-                // 🏁 If Ollama signals the stream is done, finalize message
-//                if let done = responseDict["done"] as? Bool, done {
-//                    print("✅ Ollama Streaming Complete")
-//                    finalizeStreamingMessage()
-//                }
             }
         } else {
             // 🌐 Online Mode: Direct Text Processing
@@ -145,9 +160,17 @@ class StreamingAPIClient: NSObject, URLSessionDataDelegate {
                 .replacingOccurrences(of: "data: ", with: "")
                 .replacingOccurrences(of: "\n", with: "")
                 .replacingOccurrences(of: "__NEWLINE__", with: "\n")
-
+            
+            print("updating chunks: \(self.currentMode)")
             DispatchQueue.main.async {
-                chatMessageListVM.tempAssistantMessage?.message += cleanedChunk
+                if self.currentMode == .text {
+                    chatMessageListVM.tempAssistantMessage?.message += cleanedChunk
+                }
+                if self.currentMode == .voice {
+                    print("contents: \(chatMessageListVM.tempAssistantMessage?.message ?? "")")
+                    chatMessageListVM.tempVoiceAssistantMessage?.message += cleanedChunk
+                }
+              
             }
 
             // 🏁 If the chunk is the final part of the response, finalize message
@@ -156,40 +179,64 @@ class StreamingAPIClient: NSObject, URLSessionDataDelegate {
     }
 
     @MainActor private func finalizeStreamingMessage() {
-        context.perform {
-            do {
-                guard let chatMessageListVM = self.chatMessageListVM,
-                      let tempMessage = chatMessageListVM.tempAssistantMessage else { return }
-
-                print("📝 Finalizing streamed message: \(tempMessage.message)")
-                self.chatMessageListVM?.isStreaming = false
-                // 🟢 Create final message object
-                let saveMessageAssistant = Message(context: self.context)
-                saveMessageAssistant.id = UUID()
-                saveMessageAssistant.sender = "Merlin"
-                saveMessageAssistant.timestamp = Date()
-                saveMessageAssistant.message = tempMessage.message
-
-                if let content = self.chatMessageListVM?.tempAssistantMessage?.thinkingContent {
-                    saveMessageAssistant.thinkingContent = content
-                } else {
-                    saveMessageAssistant.thinkingContent = nil
+        print("in finalize for \(self.currentMode)")
+        if currentMode == .text {
+            context.perform {
+                do {
+                    guard let chatMessageListVM = self.chatMessageListVM,
+                          let tempMessage = chatMessageListVM.tempAssistantMessage else { return }
+                    
+                    print("📝 Finalizing streamed message: \(tempMessage.message)")
+                    self.chatMessageListVM?.isStreaming = false
+                    // 🟢 Create final message object
+                    let saveMessageAssistant = Message(context: self.context)
+                    saveMessageAssistant.id = UUID()
+                    saveMessageAssistant.sender = "Merlin"
+                    saveMessageAssistant.timestamp = Date()
+                    saveMessageAssistant.message = tempMessage.message
+                    
+                    if let content = self.chatMessageListVM?.tempAssistantMessage?.thinkingContent {
+                        saveMessageAssistant.thinkingContent = content
+                    } else {
+                        saveMessageAssistant.thinkingContent = nil
+                    }
+                    try self.context.save()
+                    
+                    // ✅ Move temp message to permanent list and reset
+                    self.chatMessageListVM?.resetTempMessage()
+                    
+                    print("✅ Assistant message saved successfully.")
+                } catch {
+                    print("❌ Failed to save final assistant message: \(error.localizedDescription)")
                 }
-                try self.context.save()
-
-                // ✅ Move temp message to permanent list and reset
-                self.chatMessageListVM?.resetTempMessage()
-
-                print("✅ Assistant message saved successfully.")
-            } catch {
-                print("❌ Failed to save final assistant message: \(error.localizedDescription)")
             }
+        } else {
+            guard let chatMessageListVM = self.chatMessageListVM,
+                  let tempMessage = chatMessageListVM.tempVoiceAssistantMessage else { return }
+           
+            let voiceMessage = Message(context: self.context)
+            voiceMessage.id = UUID()
+            voiceMessage.sender = "Merlin"
+            voiceMessage.timestamp = Date()
+            voiceMessage.message = tempMessage.message
+            DispatchQueue.main.async {
+                self.chatMessageListVM?.isStreaming = false
+                self.chatMessageListVM?.resetTempVoiceMessage()
+                chatMessageListVM.resetTempVoiceMessage()
+                self.chatMessageListVM?.voiceMessages.append(voiceMessage)
+            }
+     
+            voiceStatus = .idle
+            print(voiceStatus, " state")
+            
         }
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+      
         if let streamData = String(data: data, encoding: .utf8) {
             DispatchQueue.main.async {
+                print("print \(streamData)")
                 self.updateChunks(streamData)
             }
         } else {
@@ -248,8 +295,9 @@ public struct ContentView: View {
     
     // Custom initializer
     init() {
-        _messageListVM = ObservedObject(wrappedValue: ChatMessageListViewModel(context: PersistenceController.shared.container.viewContext)) // Initialize messageListVM with context
+        _messageListVM = ObservedObject(wrappedValue: ChatMessageListViewModel(context: PersistenceController.shared.container.viewContext )) // Initialize messageListVM with context
         streamingApiClient = StreamingAPIClient(chatMessageVM: chatMessageVM, chatMessageListVM: _messageListVM.wrappedValue, context: PersistenceController.shared.container.viewContext) // Initialize the API client
+        messageListVM.streamingApiClient = self.streamingApiClient
     }
 
     public var body: some View {
@@ -263,7 +311,7 @@ public struct ContentView: View {
                     Spacer()
                 } else {
                     if voiceModeActive {
-                        SpeechView()
+                        SpeechView(context: viewContext, messageListVM: messageListVM, streamingApiClient: StreamingAPIClient(chatMessageVM: ChatMessageViewModel(), chatMessageListVM: messageListVM, context: viewContext)).environmentObject(messageListVM)
                     } else {
                         MessageListView(messageListVM: messageListVM, messages: messages).zIndex(-1)
                             .padding(40)

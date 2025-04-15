@@ -9,6 +9,9 @@ struct SettingsView: View {
     @AppStorage("darkMode") private var isDarkModeEnabled: Bool = false
     @AppStorage("notificationsEnabled") private var areNotificationsEnabled: Bool = true
     
+    @AppStorage("voicePromptMode") private var voicePromptMode: String = "button"
+    @AppStorage("pauseDuration") private var pauseDuration: Double = 3
+    
     var body: some View {
         List {
             // Section for Model Selection
@@ -39,7 +42,22 @@ struct SettingsView: View {
                         print("Notifications: \(newValue ? "Enabled" : "Disabled")")
                     }
             }
-            
+            Section(header: Text("Voice Settings")) {
+                Picker("Voice Prompt Mode", selection: $voicePromptMode) {
+                    Text("Button").tag("button")
+                    Text("Pause").tag("pause")
+                    Text("Goodbye").tag("goodbye")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+
+                if voicePromptMode == "pause" {
+                    VStack(alignment: .leading) {
+                        Text("Pause Duration: \(Int(pauseDuration))s")
+                        Slider(value: $pauseDuration, in: 1...5, step: 1)
+                    }
+                    .padding(.top, 8)
+                }
+            }
             // Section for Resetting Settings
             Section {
                 Button("Reset to Default") {

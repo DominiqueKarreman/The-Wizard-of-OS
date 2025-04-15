@@ -374,11 +374,11 @@ struct PromptTF: View {
     // Function to send message
     func sendPrompt(_ prompt: String, in context: NSManagedObjectContext) {
         do {
-            try messageListVM.addMessage(message: prompt, sender: "User" )
+            try messageListVM.addMessage(message: prompt, sender: "User", mode: nil )
             try messageListVM.isStreaming = true
             print("\(messageListVM.isStreaming): state")
             
-            try streamingApiClient.streamResponse(for: prompt, image: nil)
+            try streamingApiClient.streamResponse(for: prompt, image: nil, mode: .text)
             print("✅ Streaming request sent")
             
         } catch {
@@ -401,7 +401,7 @@ struct BubbleWithPointer: Shape {
         let pointerSize: CGFloat = 12  // Triangle size
         let pointerX = rect.width * pointerPosition  // Dynamic pointer position
         
-        // 🔲 Rounded Rect (Main Bubble)
+        
         path.addRoundedRect(in: CGRect(x: 0, y: 0, width: rect.width, height: rect.height - pointerSize),
                             cornerSize: CGSize(width: cornerRadius, height: cornerRadius))
         

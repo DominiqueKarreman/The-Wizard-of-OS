@@ -17,9 +17,7 @@ struct MainTabView: View {
                             
                     }
 
-                    NavigationLink(destination: SpeechView()) {
-                        Label(" Voice mode", systemImage: "microphone").font(.title)
-                    }
+                   
                    
 
                     NavigationLink(destination: SettingsView()) {

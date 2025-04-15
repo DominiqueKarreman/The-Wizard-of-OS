@@ -11,7 +11,7 @@ import UserNotifications
 import CloudKit
 
 struct APIConstants {
-    static let baseURL = "https://788e-2a02-a44f-108f-0-f0ab-af77-ff42-ce31.ngrok-free.app"
+    static let baseURL = "https://5191-145-44-53-171.ngrok-free.app"
 }
 @available(macOS 15.0, *)
 @main
