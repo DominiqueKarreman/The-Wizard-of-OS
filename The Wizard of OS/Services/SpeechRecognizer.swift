@@ -2,6 +2,14 @@ import AVFoundation
 import Foundation
 import Speech
 import SwiftUI
+import CoreData
+
+#if os(macOS)
+import AppKit
+
+#else
+import UIKit
+#endif
 
 public enum ListeningState: String {
     case idle
@@ -9,21 +17,31 @@ public enum ListeningState: String {
     case processingPrompt
 }
 
-class SpeechRecognizer: ObservableObject {
+class SpeechRecognizer: NSObject, ObservableObject {
     @AppStorage("voicePromptMode") private var voicePromptMode: String = "button"
     @AppStorage("pauseDuration") private var pauseDuration: Double = 2
     private var lastSpokenDate: Date?
     private var pauseTimer: Timer?
     
+    @AppStorage("videoModeActive") var videoModeActive: Bool = false
+    @AppStorage("screenshotModeActive") var screenshotModeActive: Bool = false
+    
     private var context: NSManagedObjectContext
-    var sendPromptAction: ((String, NSManagedObjectContext) -> Void)?
+    var sendPromptAction: ((String, NSManagedObjectContext, PlatformImage?) -> Void)?
+    
+    private var videoSession: AVCaptureSession?
+    private var videoOutput: AVCaptureVideoDataOutput?
+    private var videoQueue = DispatchQueue(label: "VideoQueue")
+    private var latestFrame: CGImage?
 
     // Existing properties and methods
     
     // Modify the init method to accept the context
-    init(context: NSManagedObjectContext, sendPromptAction: ((String, NSManagedObjectContext) -> Void)? = nil) {
+    init(context: NSManagedObjectContext, sendPromptAction: ((String, NSManagedObjectContext, PlatformImage?) -> Void)? = nil) {
         self.context = context
         self.sendPromptAction = sendPromptAction
+        super.init()
+        startVideoCaptureSession()
     }
     
     @Published var voiceStatus: ListeningState = .idle  // Correct initialization here
@@ -217,39 +235,45 @@ class SpeechRecognizer: ObservableObject {
         }
     }
 
-    public func handleFinishedPrompt(transcript: String, speech: Binding<String>, audioLevel: Binding<Double>) {
-        voiceStatus = .processingPrompt
+public func handleFinishedPrompt(transcript: String, speech: Binding<String>, audioLevel: Binding<Double>) {
+    voiceStatus = .processingPrompt
 
-        var cleanedTranscript = transcript
-        let range = NSRange(cleanedTranscript.startIndex..., in: cleanedTranscript)
-        if let heyMatch = heyMerlinRegex.firstMatch(in: cleanedTranscript, options: [], range: range) {
-            let afterHeyIndex = cleanedTranscript.index(cleanedTranscript.startIndex, offsetBy: heyMatch.range.upperBound)
-            cleanedTranscript = String(cleanedTranscript[afterHeyIndex...]).trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-
-        // if let match = byeMerlinRegex.firstMatch(in: cleanedTranscript, options: [], range: range) {
-        //     let beforeByeIndex = cleanedTranscript.index(cleanedTranscript.startIndex, offsetBy: match.range.lowerBound)
-        //     cleanedTranscript = String(cleanedTranscript[..<beforeByeIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
-        // }
-
-        sendPromptAction?(cleanedTranscript, context)
-        print("sending prompt, cleaned transcript: \(cleanedTranscript)")
-        self.relay(speech, message: "")
-
-        if let audioEngine = assistant.audioEngine, audioEngine.isRunning {
-            audioEngine.stop()
-            audioEngine.inputNode.removeTap(onBus: 0)
-        }
-
-        assistant.reset()
-
-        print("🔊 Detected 'Goodbye Merlin'. Switched to processingPrompt state. transcript: \(cleanedTranscript)")
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.voiceStatus = .idle
-            self.record(to: speech, audioLevel: audioLevel)
-        }
+    var cleanedTranscript = transcript
+    let range = NSRange(cleanedTranscript.startIndex..., in: cleanedTranscript)
+    if let heyMatch = heyMerlinRegex.firstMatch(in: cleanedTranscript, options: [], range: range) {
+        let afterHeyIndex = cleanedTranscript.index(cleanedTranscript.startIndex, offsetBy: heyMatch.range.upperBound)
+        cleanedTranscript = String(cleanedTranscript[afterHeyIndex...]).trimmingCharacters(in: .whitespacesAndNewlines)
     }
+
+    // if let match = byeMerlinRegex.firstMatch(in: cleanedTranscript, options: [], range: range) {
+    //     let beforeByeIndex = cleanedTranscript.index(cleanedTranscript.startIndex, offsetBy: match.range.lowerBound)
+    //     cleanedTranscript = String(cleanedTranscript[..<beforeByeIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
+    // }
+
+#if os(macOS)
+    let snapshot: PlatformImage? = screenshotModeActive ? captureScreenSnapshot() : (videoModeActive ? captureWebcamSnapshot() : nil)
+#else
+    let snapshot: PlatformImage? = nil
+#endif
+
+    sendPromptAction?(cleanedTranscript, context, snapshot)
+    print("sending prompt, cleaned transcript: \(cleanedTranscript)")
+    self.relay(speech, message: "")
+
+    if let audioEngine = assistant.audioEngine, audioEngine.isRunning {
+        audioEngine.stop()
+        audioEngine.inputNode.removeTap(onBus: 0)
+    }
+
+    assistant.reset()
+
+    print("🔊 Detected 'Goodbye Merlin'. Switched to processingPrompt state. transcript: \(cleanedTranscript)")
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        self.voiceStatus = .idle
+        self.record(to: speech, audioLevel: audioLevel)
+    }
+}
     
     func stopAndRestartRecording(to speech: Binding<String>, audiolevel: Binding<Double>, delay: TimeInterval = 1.0) {
         stopRecording()  // Stop the current recording
@@ -329,4 +353,60 @@ class SpeechRecognizer: ObservableObject {
             binding.wrappedValue = message
         }
     }
+
+#if os(macOS)
+    private func captureWebcamSnapshot() -> PlatformImage? {
+        guard let cgImage = latestFrame else { return nil }
+        return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
+    }
+#else
+    private func captureWebcamSnapshot() -> PlatformImage? {
+        // Webcam snapshot capture not implemented for iOS
+        return nil
+    }
+#endif
+    
+    func startVideoCaptureSession() {
+        let session = AVCaptureSession()
+        session.sessionPreset = .medium
+        
+        guard let device = AVCaptureDevice.default(for: .video),
+              let input = try? AVCaptureDeviceInput(device: device),
+              session.canAddInput(input) else {
+            print("❌ Unable to access video device")
+            return
+        }
+        session.addInput(input)
+
+        let output = AVCaptureVideoDataOutput()
+        output.setSampleBufferDelegate(self, queue: videoQueue)
+        session.addOutput(output)
+
+        self.videoSession = session
+        self.videoOutput = output
+        session.startRunning()
+    }
 }
+
+extension SpeechRecognizer: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        let context = CIContext()
+        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
+            self.latestFrame = cgImage
+        }
+    }
+}
+
+// MARK: - Screen Snapshot for macOS
+#if os(macOS)
+private func captureScreenSnapshot() -> PlatformImage? {
+    guard let screen = NSScreen.main else { return nil }
+    let image = CGWindowListCreateImage(screen.frame, .optionOnScreenBelowWindow, kCGNullWindowID, .bestResolution)
+    if let cgImage = image {
+        return NSImage(cgImage: cgImage, size: screen.frame.size)
+    }
+    return nil
+}
+#endif

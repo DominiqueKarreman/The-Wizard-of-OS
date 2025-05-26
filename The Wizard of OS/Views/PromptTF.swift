@@ -12,13 +12,17 @@ import AppKit
 struct PromptTF: View {
     
     @StateObject private var networkMonitor = NetworkMonitor()
-    
+    @Binding var selectedImage: PlatformImage?
     var streamingApiClient: StreamingAPIClient!
     @ObservedObject var messageListVM: ChatMessageListViewModel
     var title: String
     @Binding var text: String
     @FocusState var isActive
     @Binding var voiceModeActive: Bool
+    @Binding var videoModeActive: Bool
+    @Binding var screenshotModeActive: Bool
+    
+    
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var showModelSelectionModal = false
@@ -36,6 +40,7 @@ struct PromptTF: View {
     @State private var isHoveringTooltip = false
     
     @State private var showTooltip = false
+    @State private var showImagePreview = false
     
     var body: some View {
         VStack {
@@ -129,6 +134,56 @@ struct PromptTF: View {
                         }
                         .frame(width: 30)  // Fixed width for the clipboard button area
                         
+                        // ➕ Add Image Button
+                        Button(action: {
+                            #if os(iOS)
+                            // iOS image picker logic placeholder
+                            print("Add image tapped (iOS)")
+                            #elseif os(macOS)
+                            let panel = NSOpenPanel()
+                            panel.allowsMultipleSelection = false
+                            panel.canChooseDirectories = false
+                            panel.allowedContentTypes = [.image]
+                            if panel.runModal() == .OK, let url = panel.url, let image = NSImage(contentsOf: url) {
+                                selectedImage = image
+                            }
+                            #endif
+                        }) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                                .foregroundColor(.white)
+                                .padding(.leading, 8)
+                        }
+                        .buttonStyle(.plain)
+                        .frame(width: 30)
+
+                        // Image preview (if image is selected)
+                        if let selectedImage = selectedImage {
+                            #if os(iOS)
+                            // (Optional) Implement similar button for iOS if needed
+                            Image(uiImage: selectedImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 50, maxHeight: 50)
+                                .cornerRadius(6)
+                                .padding(.trailing, 8)
+                            #elseif os(macOS)
+                            Button(action: {
+                                showImagePreview = true
+                            }) {
+                                Image(nsImage: selectedImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxWidth: 50, maxHeight: 50)
+                                    .cornerRadius(6)
+                                    .padding(.trailing, 8)
+                            }
+                            .buttonStyle(.plain)
+                            #endif
+                        }
+                        
                         // 📝 TextField
                         TextField("", text: $text)
                             .accessibilityIdentifier("textFieldInput")
@@ -139,7 +194,7 @@ struct PromptTF: View {
                             .focused($isActive)
                             .onSubmit {
                                 if text != "" {
-                                    sendPrompt(text, in: viewContext)
+                                    sendPrompt(text, image: selectedImage ?? nil, in: viewContext)
                                     text = ""
                                 }
                             }
@@ -147,7 +202,7 @@ struct PromptTF: View {
                         // 📨 Send Button on the right
                         Button(action: {
                             if text != "" {
-                                sendPrompt(text, in: viewContext)
+                                sendPrompt(text, image: selectedImage ?? nil, in: viewContext)
                                 text = ""
                             }
                         }) {
@@ -160,8 +215,9 @@ struct PromptTF: View {
                         }
                         .buttonStyle(.plain)
                         .background(.clear)
-                    }.transition(.move(edge: .bottom).combined(with: .opacity))  // This will make it slide from the bottom
-                        .animation(.easeInOut(duration: 0.5), value: voiceModeActive)
+                    }
+                    .transition(.move(edge: .bottom).combined(with: .opacity))  // This will make it slide from the bottom
+                    .animation(.easeInOut(duration: 0.5), value: voiceModeActive)
                 }
             }
             .padding(.horizontal)
@@ -290,7 +346,7 @@ struct PromptTF: View {
                             .font(.subheadline)
                             .foregroundColor(offline ? .red.opacity(0.8) : .green.opacity(0.8)) // Adjust text color
                     }
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 1)
                     .padding(.horizontal, 16)
                     .background(
                         offline
@@ -327,36 +383,119 @@ struct PromptTF: View {
                 .sheet(isPresented: $showModelSelectionModal) {
                     ModelSelectionView(isModalPresented: $showModelSelectionModal)
                 }
+                let buttonHeight: CGFloat = {
+                    #if os(iOS)
+                    return 30
+                    #else
+                    return 40
+                    #endif
+                }()
+
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) { // Animate state change
+                    withAnimation(.easeInOut(duration: 0.3)) {
                         voiceModeActive.toggle()
+                        if voiceModeActive == false {
+                            videoModeActive = false
+                        }
                     }
                 }) {
                     HStack(spacing: 10) {
                         Image(systemName: "microphone")
                             .font(.system(size: 13))
-                            .foregroundColor(voiceModeActive ? .green : .red) // Color changes dynamically
-                            .transition(.scale.combined(with: .opacity)) // Smooth effect
-                        
-                        Text("Voice mode")   .accessibilityIdentifier("OfflineOnlineText")
-                            .font(.subheadline)
-                            .foregroundColor(voiceModeActive ?  .green.opacity(0.8): .red.opacity(0.8)) // Adjust text color
+                            .foregroundColor(voiceModeActive ? .green : .red)
+                            #if os(iOS)
+                            Text("")
+                            #else
+                            Text("Voice mode").font(.subheadline)
+                            .foregroundColor(voiceModeActive ?  .green.opacity(0.8): .red.opacity(0.8))
+                            #endif
+                            
                     }
-                    .padding(.vertical, 8)
+                    
                     .padding(.horizontal, 16)
+                    .padding(.vertical, 3)
                     .background(
                         voiceModeActive
-                        ? Color("TextField").opacity(0.9)  // Darker when active
-                        : Color("TextField").opacity(isHoveredOfflineButton ? 0.5 : 0.3) // Lighter when inactive
+                        ? Color("TextField").opacity(0.9)
+                        : Color("TextField").opacity(isHoveredOfflineButton ? 0.5 : 0.3)
                     )
                     .cornerRadius(6)
-                    .scaleEffect(voiceModeActive ? 0.95 : 1) // Slight shrink when pressed
-                    .animation(.easeInOut(duration: 0.2), value: voiceModeActive) // Smooth transition
+                    .scaleEffect(voiceModeActive ? 0.95 : 1)
+                    .animation(.easeInOut(duration: 0.2), value: voiceModeActive)
                 }
                 .accessibilityIdentifier("VoiceMode") // Assign identifier to the button itself
                 .accessibilityElement(children: .combine)
                 .buttonStyle(PlainButtonStyle())
                 
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) { // Animate state change
+                        voiceModeActive = true
+                        screenshotModeActive = false
+                        videoModeActive.toggle()
+                    }
+                }) {
+                    HStack(spacing: 10) {
+                        Image(systemName: "camera")
+                            .font(.system(size: 13))
+                            .foregroundColor(videoModeActive ? .green : .red) // Color changes dynamically
+                            .transition(.scale.combined(with: .opacity)) // Smooth effect
+                        #if os(iOS)
+                        Text("")
+                        #else
+                        Text("Video mode").accessibilityIdentifier("videoModeIdentifier")
+                            .font(.subheadline)
+                            .foregroundColor(videoModeActive ?  .green.opacity(0.8): .red.opacity(0.8)) // Adjust text color
+                        #endif
+                            
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(
+                        videoModeActive
+                        ? Color("TextField").opacity(0.9)  // Darker when active
+                        : Color("TextField").opacity(isHoveredOfflineButton ? 0.5 : 0.3) // Lighter when inactive
+                    )
+                    .cornerRadius(6)
+                    .scaleEffect(videoModeActive ? 0.95 : 1) // Slight shrink when pressed
+                    .animation(.easeInOut(duration: 0.2), value: videoModeActive) // Smooth transition
+                }
+                .accessibilityIdentifier("VideoMode") // Assign identifier to the button itself
+                .accessibilityElement(children: .combine)
+                .buttonStyle(PlainButtonStyle())
+//                .disabled(!voiceModeActive)
+                
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) { // Animate state change
+                        videoModeActive = false
+                        
+                        screenshotModeActive.toggle()
+                    }
+                }) {
+                    HStack(spacing: 10) {
+                        Image(systemName: "camera.viewfinder")
+                            .font(.system(size: 13))
+                            .foregroundColor(screenshotModeActive ? .green : .red) // Color changes dynamically
+                            .transition(.scale.combined(with: .opacity)) // Smooth effect
+                        
+                        Text("Screenshot mode")   .accessibilityIdentifier("screenshotModeActive")
+                            .font(.subheadline)
+                            .foregroundColor(screenshotModeActive ?  .green.opacity(0.8): .red.opacity(0.8)) // Adjust text color
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(
+                        screenshotModeActive
+                        ? Color("TextField").opacity(0.9)  // Darker when active
+                        : Color("TextField").opacity(isHoveredOfflineButton ? 0.5 : 0.3) // Lighter when inactive
+                    )
+                    .cornerRadius(6)
+                    .scaleEffect(screenshotModeActive ? 0.95 : 1) // Slight shrink when pressed
+                    .animation(.easeInOut(duration: 0.2), value: screenshotModeActive) // Smooth transition
+                }
+                .accessibilityIdentifier("screenshotMode") // Assign identifier to the button itself
+                .accessibilityElement(children: .combine)
+                .buttonStyle(PlainButtonStyle())
+//                .disabled(!voiceModeActive)
                
                 Spacer()
                 if voiceModeActive {
@@ -368,19 +507,75 @@ struct PromptTF: View {
             .padding(.top, 5)
             .frame(maxWidth: .infinity, alignment: .leading) // Keep everything aligned
         }
+        // Sheet for image preview (macOS)
+        #if os(macOS)
+        .sheet(isPresented: $showImagePreview) {
+            VStack {
+                Text("Image Preview")
+                    .font(.title)
+                    .padding(.top)
+
+                if let selectedImage = selectedImage {
+                    Image(nsImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 400, maxHeight: 300)
+                        .cornerRadius(10)
+                        .padding()
+                } else {
+                    Text("No image selected.")
+                        .foregroundColor(.gray)
+                }
+
+                Button("Remove Image") {
+                    selectedImage = nil
+                    showImagePreview = false
+                }
+                .padding(.bottom)
+            }
+            .padding()
+            .frame(minWidth: 450, minHeight: 400)
+        }
+        #endif
         
     }
     
+    func captureScreenSnapshot() -> PlatformImage? {
+        #if os(macOS)
+        guard let screen = NSScreen.main else { return nil }
+        let image = CGWindowListCreateImage(screen.frame, .optionOnScreenBelowWindow, kCGNullWindowID, .bestResolution)
+        if let cgImage = image {
+            return NSImage(cgImage: cgImage, size: screen.frame.size)
+        }
+        return nil
+        #else
+        return nil // Implement iOS screenshot logic if needed
+        #endif
+    }
+    
+    
     // Function to send message
-    func sendPrompt(_ prompt: String, in context: NSManagedObjectContext) {
+    func sendPrompt(_ prompt: String, image: PlatformImage?, in context: NSManagedObjectContext) {
         do {
-            try messageListVM.addMessage(message: prompt, sender: "User", mode: nil )
+            var finalImage: PlatformImage? = image
+
+            if screenshotModeActive {
+                #if os(macOS)
+                finalImage = captureScreenSnapshot()
+                #elseif os(iOS)
+                // Optional: Implement screenshot logic for iOS here
+                finalImage = nil
+                #endif
+            }
+
+            try messageListVM.addMessage(message: prompt, sender: "User", mode: nil, image: finalImage)
             try messageListVM.isStreaming = true
             print("\(messageListVM.isStreaming): state")
-            
-            try streamingApiClient.streamResponse(for: prompt, image: nil, mode: .text)
+
+            try streamingApiClient.streamResponse(for: prompt, image: finalImage, mode: .text)
             print("✅ Streaming request sent")
-            
+
+            selectedImage = nil
         } catch {
             print("❌ Error sending prompt: \(error.localizedDescription)")
         }

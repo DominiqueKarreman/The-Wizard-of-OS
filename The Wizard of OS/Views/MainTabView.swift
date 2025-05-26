@@ -17,6 +17,11 @@ struct MainTabView: View {
                             
                     }
 
+                    NavigationLink(destination: WeekCalendarView().environment(\.managedObjectContext, viewContext)) {
+                        Label(" Calendar", systemImage: "calendar")
+                            .font(.title)
+                            
+                    }
                    
                    
 

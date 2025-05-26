@@ -473,6 +473,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-Wizard-of-OS-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "This app needs calendar access to sync with iCloud.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera to record video input.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app uses your microphone to record voice input.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to turn your voice into text.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -518,6 +520,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "The-Wizard-of-OS-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "This app needs calendar access to sync with iCloud.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera to record video input.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app uses your microphone to record voice input.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This app uses speech recognition to turn your voice into text.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

@@ -11,7 +11,7 @@ import UserNotifications
 import CloudKit
 
 struct APIConstants {
-    static let baseURL = "https://5191-145-44-53-171.ngrok-free.app"
+    static let baseURL = "http://127.0.0.1:5002"
 }
 @available(macOS 15.0, *)
 @main
@@ -19,6 +19,8 @@ struct TheWizardOfOSApp: App {
     let persistenceController = PersistenceController.shared
 
     @AppStorage("voiceModeActive") var voiceModeActive: Bool = false // Store voice mode state
+    @AppStorage("videoModeActive") var videoModeActive: Bool = false // Store voice mode state
+    @AppStorage("screenshotModeActive") var screenshotModeActive: Bool = false // Store voice mode state
 
     var body: some Scene {
         #if os(macOS)
@@ -45,8 +47,23 @@ struct TheWizardOfOSApp: App {
                 // Add keyboard shortcut to toggle voice mode
                 Button("Toggle Voice Mode") {
                     voiceModeActive.toggle()
+                    if voiceModeActive == false {
+                        videoModeActive = false
+                    }
                 }
                 .keyboardShortcut("v", modifiers: [.command, .shift]) // Change "v" to your preferred key
+                Button("Toggle Video Mode") {
+                    voiceModeActive = true
+                    screenshotModeActive = false
+                    videoModeActive.toggle()
+                }
+                .keyboardShortcut("c", modifiers: [.command, .shift]) // Change "v" to your preferred key
+                
+                Button("Toggle Screenshot Mode") {
+                    videoModeActive = false
+                    screenshotModeActive.toggle()
+                }
+                .keyboardShortcut("s", modifiers: [.command, .shift]) // Change "v" to your preferred key
             }
         }
         .windowStyle(.hiddenTitleBar) // Hide title bar in macOS

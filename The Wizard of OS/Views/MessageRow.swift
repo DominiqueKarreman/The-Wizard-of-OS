@@ -9,8 +9,20 @@ struct MessageRow: View {
     let saveMessage: (Message) -> Void
     let setHoveredMessage: (UUID?) -> Void
     
+    
     @State private var isThinkingModalPresented: Bool = false
     @State private var clipboardModalPresented: Bool = false
+    
+    
+    func convertDataToImage(_ data: Data) -> PlatformImage? {
+        #if os(iOS)
+        return UIImage(data: data)
+        #elseif os(macOS)
+        return NSImage(data: data)
+        #endif
+    }
+    
+    
     
     var body: some View {
         VStack(alignment: .trailing, spacing: 5) {
@@ -26,7 +38,7 @@ struct MessageRow: View {
                         Text(tempMessage?.sender ?? "")
                             .font(.caption)
                             .foregroundColor(.white)
-                            .bold()
+                        .bold()
                     }
                     Spacer()
                 }
@@ -38,6 +50,21 @@ struct MessageRow: View {
                         Text(message?.message ?? "")
                             .font(.headline)
                             .foregroundColor(.white)
+                        if let data = message?.imageData, let image = convertDataToImage(data) {
+                            #if os(iOS)
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 300, maxHeight: 200)
+                                .cornerRadius(10)
+                            #elseif os(macOS)
+                            Image(nsImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 300, maxHeight: 200)
+                                .cornerRadius(10)
+                            #endif
+                        }
                         Text(message!.formattedTimestamp)
                             .font(.caption)
                             .foregroundColor(.gray)

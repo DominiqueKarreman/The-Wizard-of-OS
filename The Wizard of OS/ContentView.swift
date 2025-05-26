@@ -282,8 +282,12 @@ public struct ContentView: View {
     
     @ObservedObject var chatMessageVM = ChatMessageViewModel()
     @AppStorage("voiceModeActive") var voiceModeActive: Bool = false
+    @AppStorage("videoModeActive") var videoModeActive: Bool = false
+    
+    @AppStorage("screenshotModeActive") var screenshotModeActive: Bool = false
     
     @State var prompt: String = ""
+    @State private var selectedImage: PlatformImage? = nil
     var streamingApiClient: StreamingAPIClient!
     let persistenceController = PersistenceController.shared
     @FetchRequest(
@@ -304,10 +308,12 @@ public struct ContentView: View {
         GeometryReader { geometry in
             VStack {
                 #if os(macOS)
+                // Optional: Image Picker Button
+            
                 if messages.isEmpty {
                     Spacer()
                     ChatStreamTextEffect(text: "Ik ben MERLIN hoe kan ik je helpen vandaag?", fontSize: 32, startDelay: 1, delayPerChunk: 0.03)
-                    PromptTF(streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive).padding(30)
+                    PromptTF(selectedImage: $selectedImage, streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive, videoModeActive: $videoModeActive, screenshotModeActive: $screenshotModeActive).padding(30)
                     Spacer()
                 } else {
                     if voiceModeActive {
@@ -321,13 +327,13 @@ public struct ContentView: View {
 
                     }
                     Spacer()
-                    PromptTF(streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive).padding(30).environmentObject(messageListVM)
+                    PromptTF(selectedImage: $selectedImage, streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive, videoModeActive: $videoModeActive, screenshotModeActive: $screenshotModeActive).padding(30).environmentObject(messageListVM)
                 }
                 #elseif os(iOS)
                 if messages.isEmpty {
                     Spacer()
                     ChatStreamTextEffect(text: "Ik ben MERLIN, hoe kan ik je helpen vandaag?", fontSize: 28, startDelay: 1, delayPerChunk: 0.03)
-                    PromptTF(streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive).padding(30)
+                    PromptTF(selectedImage: $selectedImage, streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive, videoModeActive: $videoModeActive, screenshotModeActive: $screenshotModeActive).padding(30)
                     Spacer()
                 } else {
                     
@@ -342,7 +348,7 @@ public struct ContentView: View {
                     }
                     
                     Spacer()
-                    PromptTF(streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive).padding(10)
+                    PromptTF(selectedImage: $selectedImage, streamingApiClient: streamingApiClient, messageListVM: messageListVM, title: "Prompt:", text: $prompt, voiceModeActive: $voiceModeActive, videoModeActive: $videoModeActive, screenshotModeActive: $screenshotModeActive).padding(10)
                 }
                 #endif
             }
@@ -365,6 +371,7 @@ public struct ContentView: View {
 }
 
 
+#if canImport(SwiftUI)
 // Model selection view (Modal content)
 struct ModelSelectionView: View {
     
@@ -429,6 +436,7 @@ struct ModelSelectionView: View {
         }
     }
 }
+#endif
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

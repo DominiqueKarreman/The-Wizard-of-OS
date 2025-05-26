@@ -1,12 +1,20 @@
 import SwiftUI
 import Speech
 import SiriWaveView
+import CoreData
+
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 
 struct SpeechView: View {
     @State var voiceStatus: ListeningState = .idle
     @State var currentPrompt: String = ""
     
     @AppStorage("voicePromptMode") private var voicePromptMode: String = "button"
+    @AppStorage("videoModeActive") var videoModeActive: Bool = false
     
     @State private var hoveredMessageID: UUID? = nil
     @State private var isThinking = false // Track if the assistant is thinking
@@ -35,11 +43,13 @@ struct SpeechView: View {
        
         _speechRecognizer = StateObject(wrappedValue: SpeechRecognizer(
             context: context,
-            sendPromptAction: { prompt, ctx in
+            sendPromptAction: { prompt, ctx, image in
                 do {
-                    try messageListVM.addMessage(message: prompt, sender: "User", mode: "voice")
+                    
+                    
+                    try messageListVM.addMessage(message: prompt, sender: "User", mode: "voice", image: image)
                     try messageListVM.isStreaming = true
-                    try streamingApiClient.streamResponse(for: prompt, image: nil, mode: .voice)
+                    try streamingApiClient.streamResponse(for: prompt, image: image ?? nil, mode: .voice)
                     print("✅ Streaming request sent")
                 } catch {
                     print("❌ Error sending prompt: \(error.localizedDescription)")
@@ -54,6 +64,14 @@ struct SpeechView: View {
     
     var body: some View {
         VStack(spacing: 50) {
+            // Conditionally include the camera preview at the top if video mode is active
+            if videoModeActive {
+                CameraPreview()
+                    .frame(width: 640, height: 360)
+                    .cornerRadius(12)
+                    
+            }
+
             // Add the SiriWaveView
             if speechRecognizer.voiceStatus == ListeningState.collectingPrompt {
                 SiriWaveView(power: $audioLevel)  // Amplitude driven by the audio level
@@ -103,24 +121,24 @@ struct SpeechView: View {
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color.clear)
-//                .onChange(of: messageListVM.voiceMessages.count) { _ in
-//                    scrollToLastMessage(proxy)
-//                }
-//                .onChange(of: lastMerlinMessage) { _ in
-//                    scrollToLastMessage(proxy)
-//                }
-//                .onChange(of: messageListVM.tempAssistantMessage?.message) { _ in
-//                    handleThinkingState() // Check for thinking state whenever the tempMessage changes
-//                }
+//                    .onChange(of: messageListVM.voiceMessages.count) { _ in
+//                        scrollToLastMessage(proxy)
+//                    }
+//                    .onChange(of: lastMerlinMessage) { _ in
+//                        scrollToLastMessage(proxy)
+//                    }
+//                    .onChange(of: messageListVM.tempAssistantMessage?.message) { _ in
+//                        handleThinkingState() // Check for thinking state whenever the tempMessage changes
+//                    }
             }
-            
+
             Image(systemName: isRecording ? "mic.fill" : "mic")
                 .imageScale(.large)
                 .scaleEffect(2.0)
                 .foregroundColor(isRecording ? .accentColor : .primary)
             if speechRecognizer.voiceStatus == ListeningState.collectingPrompt {
                 HStack {
-                    
+
                     if isEditingTranscript {
                         TextField("Speak now...", text: Binding(
                             get: {
@@ -141,7 +159,7 @@ struct SpeechView: View {
                         ))
                         .textFieldStyle(.roundedBorder)
                         .padding(.horizontal)
-                        
+
                         Button(action: {
                             isEditingTranscript = false
                                voicePrompt = textValue
@@ -156,8 +174,6 @@ struct SpeechView: View {
                         .padding(.trailing)
                     } else {
                         HStack {
-                            
-                            
                             Text({
                                 let pattern = #"(?i)\bHey Merlin\b"#
                                 if let range = textValue.range(of: pattern, options: .regularExpression) {
@@ -185,7 +201,6 @@ struct SpeechView: View {
                                 .buttonStyle(BorderlessButtonStyle())
                                 .padding(.trailing)
                             }
-                            
                         }
                     }
 
@@ -199,47 +214,47 @@ struct SpeechView: View {
                     .padding(.trailing)
                 }
             }
-//            if let tempMessage = messageListVM.tempVoiceAssistantMessage {
-//                MessageRow(
-//                    message: nil, thinkingContent: nil,
-//                    tempMessage: tempMessage,
-//                    hoveredMessageID: hoveredMessageID,
-//                    deleteMessage: deleteMessage,
-//                    saveMessage: saveMessage,
-//                    setHoveredMessage: { newID in hoveredMessageID = newID }
-//                )
-//                .transition(.move(edge: .bottom))
-//                .animation(.easeInOut(duration: 0.1), value: messageListVM.tempVoiceAssistantMessage?.message)
-//                .listRowBackground(Color.clear)
+//                if let tempMessage = messageListVM.tempVoiceAssistantMessage {
+//                    MessageRow(
+//                        message: nil, thinkingContent: nil,
+//                        tempMessage: tempMessage,
+//                        hoveredMessageID: hoveredMessageID,
+//                        deleteMessage: deleteMessage,
+//                        saveMessage: saveMessage,
+//                        setHoveredMessage: { newID in hoveredMessageID = newID }
+//                    )
+//                    .transition(.move(edge: .bottom))
+//                    .animation(.easeInOut(duration: 0.1), value: messageListVM.tempVoiceAssistantMessage?.message)
+//                    .listRowBackground(Color.clear)
 //
-//            }
-//            if !isRecording {
-//                Button {
-//                    print("starting speech recognition")
-//                    self.textValue = ""
-//                    self.spokenText = ""
-//                    isRecording = true
-//                    speechRecognizer.record(to: $textValue, audioLevel: $audioLevel)
-//                } label: {
-//                    Text("Start")
 //                }
-//            } else {
-//                Button {
-//                    print("stopping speech recognition")
-//                    isRecording = false
-//                    audioLevel = 0
-//                    spokenText = textValue
-//                    speechRecognizer.stopRecording()
-//                    textValue = "Press start to record speech..."
-//                    print(spokenText)
+//                if !isRecording {
+//                    Button {
+//                        print("starting speech recognition")
+//                        self.textValue = ""
+//                        self.spokenText = ""
+//                        isRecording = true
+//                        speechRecognizer.record(to: $textValue, audioLevel: $audioLevel)
+//                    } label: {
+//                        Text("Start")
+//                    }
+//                } else {
+//                    Button {
+//                        print("stopping speech recognition")
+//                        isRecording = false
+//                        audioLevel = 0
+//                        spokenText = textValue
+//                        speechRecognizer.stopRecording()
+//                        textValue = "Press start to record speech..."
+//                        print(spokenText)
 //
-//                    // Check for "Goodbye Merlin" after stopping recording
+//                        // Check for "Goodbye Merlin" after stopping recording
 //
-//                } label: {
-//                    Text("Stop")
+//                    } label: {
+//                        Text("Stop")
+//                    }
 //                }
-//            }
-          
+
             if !isRecording {
                 Text({
                     let pattern = #"(?i)\bHey Merlin\b"#
@@ -250,15 +265,16 @@ struct SpeechView: View {
                     return spokenText
                 }())
             }
-        }.onChange(of: spokenText){
-            
+        }
+        .onChange(of: spokenText){
             let pattern = #"(?i)\bHey Merlin\b"#
             if let range = spokenText.range(of: pattern, options: .regularExpression) {
                 let afterHeyMerlin = spokenText[range.upperBound...].trimmingCharacters(in: .whitespacesAndNewlines)
                 filteredPrompt = afterHeyMerlin
                 print("\(filteredPrompt) is the filtered prompt and spokenText is \(spokenText) and textValue is \(textValue)")
             }
-        }.onChange(of: messageListVM.tempVoiceAssistantMessage?.message) { _ in
+        }
+        .onChange(of: messageListVM.tempVoiceAssistantMessage?.message) { _ in
             handleThinkingState() // Check for thinking state whenever the tempMessage changes
         }
         .onAppear(){
@@ -266,7 +282,8 @@ struct SpeechView: View {
             self.spokenText = ""
             isRecording = true
             speechRecognizer.record(to: $textValue, audioLevel: $audioLevel)
-        }.onDisappear(){
+        }
+        .onDisappear(){
            isRecording = false
            audioLevel = 0
            speechRecognizer.stopRecording()
@@ -345,7 +362,7 @@ struct SpeechView: View {
     }
     public func sendPrompt(_ prompt: String, in context: NSManagedObjectContext) {
         do {
-            try messageListVM.addMessage(message: prompt, sender: "User", mode: "voice" )
+            try messageListVM.addMessage(message: prompt, sender: "User", mode: "voice", image: nil )
             try messageListVM.isStreaming = true
             print("\(messageListVM.isStreaming): state")
             
@@ -368,3 +385,70 @@ struct SpeechView: View {
 //#Preview {
 //    SpeechView()
 //}
+
+#if os(macOS)
+import AVFoundation
+
+struct CameraPreview: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        view.wantsLayer = true
+
+        let session = AVCaptureSession()
+        session.sessionPreset = .medium
+
+        guard let device = AVCaptureDevice.default(for: .video),
+              let input = try? AVCaptureDeviceInput(device: device),
+              session.canAddInput(input) else {
+            print("❌ Unable to access camera")
+            return view
+        }
+
+        session.addInput(input)
+
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.frame = view.bounds
+        previewLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+        view.layer?.addSublayer(previewLayer)
+
+        session.startRunning()
+
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {}
+}
+#else
+import AVFoundation
+
+struct CameraPreview: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView()
+        let session = AVCaptureSession()
+        session.sessionPreset = .medium
+
+        guard let device = AVCaptureDevice.default(for: .video),
+              let input = try? AVCaptureDeviceInput(device: device),
+              session.canAddInput(input) else {
+            print("❌ Unable to access camera")
+            return view
+        }
+
+        session.addInput(input)
+
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.frame = view.bounds
+        previewLayer.connection?.videoOrientation = .portrait
+        // No autoresizingMask needed on iOS
+        view.layer.addSublayer(previewLayer)
+
+        session.startRunning()
+
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
+}
+#endif

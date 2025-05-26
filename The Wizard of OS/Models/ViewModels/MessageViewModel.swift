@@ -66,12 +66,12 @@ class MessageViewModel: ObservableObject {
 //            }
 //        }
 //    }
-//    
-//    
+//
+//
 //    // Fetch messages from CloudKit
 //    func fetchMessages() {
 //        print("fetching these messages")
-//       
+//
 //        print("fetching these messages 2")
 //
 //            let query = CKQuery(recordType: "Message", predicate: NSPredicate(value: true))
@@ -105,14 +105,14 @@ class MessageViewModel: ObservableObject {
 //    // Send a new message to CloudKit
 //    func sendMessage(_ messageText: String) {
 //        let record = CKRecord(recordType: "Message")
-//        
+//
 //        // Manually assign a UUID to the id field
 //        let messageId = UUID()
 //        record["id"] = messageId.uuidString  // Storing the UUID as a String
 //        record["message"] = messageText
 //        record["sender"] = "User"  // Update dynamically if needed
 //        record["timestamp"] = Date()
-//        
+//
 //        database.save(record) { [weak self] savedRecord, error in
 //            if let error = error {
 //                print("Error saving message: \(error.localizedDescription)")
@@ -135,8 +135,8 @@ class MessageViewModel: ObservableObject {
 //
 //        // Set the notification info for the subscription
 //        let notificationInfo = CKSubscription.NotificationInfo()
-//        notificationInfo.alertBody = "A new message has been posted!"   
-//        
+//        notificationInfo.alertBody = "A new message has been posted!"
+//
 //        notificationInfo.shouldBadge = true
 //        notificationInfo.shouldSendContentAvailable = true
 //        subscription.notificationInfo = notificationInfo
@@ -151,7 +151,7 @@ class MessageViewModel: ObservableObject {
 //            }
 //        }
 //    }
-//    
+//
 //    // Handle incoming notifications (e.g., when a new message is created)
 //    func handleNotification(_ notification: CKNotification) {
 //        print("got a noti")
@@ -181,9 +181,9 @@ class ChatMessageListViewModel: ObservableObject {
         fetchMessages() // Fetch initial messages when the ViewModel is initialized
     }
 
-    public func sendPrompt(_ prompt: String, in context: NSManagedObjectContext) {
+    public func sendPrompt(_ prompt: String, image: PlatformImage?, in context: NSManagedObjectContext) {
         do {
-            try self.addMessage(message: prompt, sender: "User", mode: nil )
+            try self.addMessage(message: prompt, sender: "User", mode: nil, image: image ?? nil  )
             try self.isStreaming = true
             print("\(self.isStreaming): state")
             
@@ -230,7 +230,7 @@ class ChatMessageListViewModel: ObservableObject {
 //        let cleanedMessage = newMessage
 //            .replacingOccurrences(of: "data: ", with: "")
 //            .replacingOccurrences(of: "\n", with: " ")
-//        
+//
 //        // Create a new MessageObj with the cleaned message
 //        let newMessageObj = Message(
 //            message: cleanedMessage,
@@ -238,15 +238,26 @@ class ChatMessageListViewModel: ObservableObject {
 //            timestamp: Date(),
 //            context: context
 //        )
-//        
+//
 //        // Append the new message to the messages array
 //        messages.append(newMessageObj)
 //    }
     
     @AppStorage("clipboardContext") var clipboardContext: Bool = false
     @AppStorage("currentClipboard") var currentClipboard: String = ""
-
-    func addMessage(message: String, sender: String, mode: String?) {
+    
+    func convertImageToData(_ image: PlatformImage) -> Data? {
+        #if os(iOS)
+        return image.jpegData(compressionQuality: 0.8) // or .pngData()
+        #elseif os(macOS)
+        guard let tiffData = image.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiffData),
+              let pngData = bitmap.representation(using: .png, properties: [:]) else { return nil }
+        return pngData
+        #endif
+    }
+    
+    func addMessage(message: String, sender: String, mode: String?, image: PlatformImage?) {
         // Save to CoreData
         
         let newMessage = Message(context: context)
@@ -254,6 +265,9 @@ class ChatMessageListViewModel: ObservableObject {
         newMessage.id = UUID()
         newMessage.sender = sender
         newMessage.timestamp = Date()
+        if let image = image, let imageData = convertImageToData(image) {
+            newMessage.imageData = imageData
+        }
         
         // If clipboardContext is true, assign clipboard to the message
         if clipboardContext {

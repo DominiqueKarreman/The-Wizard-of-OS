@@ -48,7 +48,29 @@ final class The_Wizard_of_OSUITests: XCTestCase {
         // Verify that the button label has changed back to "Online"
         XCTAssertTrue(offlineButton.label.contains("Online"))
     }
-    
+    func testVideoModeToggle() {
+        let videoModeElement = app.otherElements["VideoMode"]
+        XCTAssertTrue(videoModeElement.exists, "The VideoMode button should exist.")
+        
+        let label = app.staticTexts["videoModeIdentifier"]
+        XCTAssertTrue(label.exists, "The label inside VideoMode should exist.")
+
+        // Initial check
+        XCTAssertEqual(label.label, "Video mode", "The label should initially be 'Video mode'.")
+
+        // Click to activate video mode
+        videoModeElement.click()
+        
+        // You could add a delay here to wait for animation/state change if needed
+        // sleep(1) or use expectation with a state change if available
+
+        // Click again to deactivate video mode
+        videoModeElement.click()
+        
+        // Final check: label still exists and shows correct text
+        XCTAssertTrue(label.exists, "The label should still be visible after toggling.")
+        XCTAssertEqual(label.label, "Video mode", "The label text should remain 'Video mode' after toggling.")
+    }
     func testModelSelectionWithList() {
         let app = XCUIApplication()
         app.launch()
@@ -81,3 +103,5 @@ final class The_Wizard_of_OSUITests: XCTestCase {
         XCTAssertEqual(modelSelectionButtonLabel, "deepseek-r1", "The model selection should be updated to 'deepseek-r1'")
     }
 }
+
+   
