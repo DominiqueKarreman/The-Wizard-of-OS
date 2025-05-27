@@ -12,7 +12,7 @@ struct CalendarEvent: Codable, Identifiable {
 }
 struct WeekCalendarView: View {
 
-    
+    @State var gwnietsupdated: String
     @StateObject private var calendarManager = CalendarManager()
     @Environment(\.colorScheme) var colorScheme
     @State private var selectedEventID: String? = nil
