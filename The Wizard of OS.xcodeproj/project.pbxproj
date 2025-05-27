@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F621C5D82DA3C5080099E8B1 /* SiriWaveView */; };
 		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
-		F6E5B93F2DE5D1070016012A /* TestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F6E5B93E2DE5D1070016012A /* TestPlan.xctestplan */; };
+		F6E5B93F2DE5D1070016012A /* The Wizard of OS.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F6E5B93E2DE5D1070016012A /* The Wizard of OS.xctestplan */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,7 @@
 		F60CCD1F2D79DE960086399F /* The Wizard of OSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A2FE882D94B8990035BF58 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		F6E5B93E2DE5D1070016012A /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
+		F6E5B93E2DE5D1070016012A /* The Wizard of OS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The Wizard of OS.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -84,7 +84,7 @@
 		F60CCD032D79DE960086399F = {
 			isa = PBXGroup;
 			children = (
-				F6E5B93E2DE5D1070016012A /* TestPlan.xctestplan */,
+				F6E5B93E2DE5D1070016012A /* The Wizard of OS.xctestplan */,
 				F6A2FE882D94B8990035BF58 /* Package.swift */,
 				F670FA6C2D8346A30004B7BC /* Frameworks */,
 				F60CCD0D2D79DE960086399F /* Products */,
@@ -232,7 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6E5B93F2DE5D1070016012A /* TestPlan.xctestplan in Resources */,
+				F6E5B93F2DE5D1070016012A /* The Wizard of OS.xctestplan in Resources */,
 				F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
