@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
-               BuildableName = "The Wizard of OS.app"
+               BuildableName = "The-Wizard-of-OS.app"
                BlueprintName = "The Wizard of OS"
                ReferencedContainer = "container:The Wizard of OS.xcodeproj">
             </BuildableReference>
@@ -30,8 +30,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:The Wizard of OS.xctestplan"
+            reference = "container:TheWizardOfOS.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:The Wizard of OS.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>
@@ -57,6 +60,28 @@
                ReferencedContainer = "container:The Wizard of OS.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F6B7C8A22DE5F8E10059648F"
+               BuildableName = "The-Wizard-of-OSTests.xctest"
+               BlueprintName = "The-Wizard-of-OSTests"
+               ReferencedContainer = "container:The Wizard of OS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F687AF242DE5FA0300E8BC23"
+               BuildableName = "TheWizardOfOSTests.xctest"
+               BlueprintName = "TheWizardOfOSTests"
+               ReferencedContainer = "container:The Wizard of OS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -74,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
-            BuildableName = "The Wizard of OS.app"
+            BuildableName = "The-Wizard-of-OS.app"
             BlueprintName = "The Wizard of OS"
             ReferencedContainer = "container:The Wizard of OS.xcodeproj">
          </BuildableReference>
@@ -91,7 +116,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
-            BuildableName = "The Wizard of OS.app"
+            BuildableName = "The-Wizard-of-OS.app"
             BlueprintName = "The Wizard of OS"
             ReferencedContainer = "container:The Wizard of OS.xcodeproj">
          </BuildableReference>

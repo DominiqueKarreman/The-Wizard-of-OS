@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F621C5D82DA3C5080099E8B1 /* SiriWaveView */; };
+		F687AF202DE5F96800E8BC23 /* TheWizardOfOS.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F687AF1F2DE5F96800E8BC23 /* TheWizardOfOS.xctestplan */; };
 		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
-		F6E5B93F2DE5D1070016012A /* The Wizard of OS.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F6E5B93E2DE5D1070016012A /* The Wizard of OS.xctestplan */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,17 +27,30 @@
 			remoteGlobalIDString = F60CCD0B2D79DE960086399F;
 			remoteInfo = "The Wizard of OS";
 		};
+		F687AF292DE5FA0300E8BC23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F60CCD042D79DE960086399F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F60CCD0B2D79DE960086399F;
+			remoteInfo = "The Wizard of OS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F60CCD0C2D79DE960086399F /* The-Wizard-of-OS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The-Wizard-of-OS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheWizardOfOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD1F2D79DE960086399F /* The Wizard of OSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F687AF1F2DE5F96800E8BC23 /* TheWizardOfOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheWizardOfOS.xctestplan; sourceTree = "<group>"; };
+		F687AF252DE5FA0300E8BC23 /* TheWizardOfOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheWizardOfOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A2FE882D94B8990035BF58 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		F6E5B93E2DE5D1070016012A /* The Wizard of OS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The Wizard of OS.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F687AF262DE5FA0300E8BC23 /* TheWizardOfOSTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TheWizardOfOSTests;
+			sourceTree = "<group>";
+		};
 		F6A2FF532D94BBF20035BF58 /* The Wizard of OS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "The Wizard of OS";
@@ -51,6 +64,11 @@
 		F6A2FF5A2D94BBF20035BF58 /* The Wizard of OSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "The Wizard of OSUITests";
+			sourceTree = "<group>";
+		};
+		F6B7C8A42DE5F8E10059648F /* The-Wizard-of-OSTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "The-Wizard-of-OSTests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -78,14 +96,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F687AF222DE5FA0300E8BC23 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		F60CCD032D79DE960086399F = {
 			isa = PBXGroup;
 			children = (
-				F6E5B93E2DE5D1070016012A /* The Wizard of OS.xctestplan */,
+				F687AF1F2DE5F96800E8BC23 /* TheWizardOfOS.xctestplan */,
 				F6A2FE882D94B8990035BF58 /* Package.swift */,
+				F6B7C8A42DE5F8E10059648F /* The-Wizard-of-OSTests */,
+				F687AF262DE5FA0300E8BC23 /* TheWizardOfOSTests */,
 				F670FA6C2D8346A30004B7BC /* Frameworks */,
 				F60CCD0D2D79DE960086399F /* Products */,
 				F6A2FF532D94BBF20035BF58 /* The Wizard of OS */,
@@ -97,9 +124,10 @@
 		F60CCD0D2D79DE960086399F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F60CCD0C2D79DE960086399F /* The-Wizard-of-OS.app */,
+				F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */,
 				F60CCD1F2D79DE960086399F /* The Wizard of OSTests.xctest */,
 				F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */,
+				F687AF252DE5FA0300E8BC23 /* TheWizardOfOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,7 +162,7 @@
 				F621C5D82DA3C5080099E8B1 /* SiriWaveView */,
 			);
 			productName = "The Wizard of OS";
-			productReference = F60CCD0C2D79DE960086399F /* The-Wizard-of-OS.app */;
+			productReference = F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F60CCD1E2D79DE960086399F /* The Wizard of OSTests */ = {
@@ -177,6 +205,29 @@
 			productReference = F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		F687AF242DE5FA0300E8BC23 /* TheWizardOfOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F687AF2B2DE5FA0300E8BC23 /* Build configuration list for PBXNativeTarget "TheWizardOfOSTests" */;
+			buildPhases = (
+				F687AF212DE5FA0300E8BC23 /* Sources */,
+				F687AF222DE5FA0300E8BC23 /* Frameworks */,
+				F687AF232DE5FA0300E8BC23 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F687AF2A2DE5FA0300E8BC23 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F687AF262DE5FA0300E8BC23 /* TheWizardOfOSTests */,
+			);
+			name = TheWizardOfOSTests;
+			packageProductDependencies = (
+			);
+			productName = TheWizardOfOSTests;
+			productReference = F687AF252DE5FA0300E8BC23 /* TheWizardOfOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -198,6 +249,10 @@
 						TestTargetID = F60CCD0B2D79DE960086399F;
 					};
 					F60CCD282D79DE960086399F = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = F60CCD0B2D79DE960086399F;
+					};
+					F687AF242DE5FA0300E8BC23 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = F60CCD0B2D79DE960086399F;
 					};
@@ -223,6 +278,7 @@
 				F60CCD0B2D79DE960086399F /* The Wizard of OS */,
 				F60CCD1E2D79DE960086399F /* The Wizard of OSTests */,
 				F60CCD282D79DE960086399F /* The Wizard of OSUITests */,
+				F687AF242DE5FA0300E8BC23 /* TheWizardOfOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -232,7 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6E5B93F2DE5D1070016012A /* The Wizard of OS.xctestplan in Resources */,
+				F687AF202DE5F96800E8BC23 /* TheWizardOfOS.xctestplan in Resources */,
 				F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +301,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F60CCD272D79DE960086399F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F687AF232DE5FA0300E8BC23 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -275,6 +338,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F687AF212DE5FA0300E8BC23 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -287,6 +357,11 @@
 			isa = PBXTargetDependency;
 			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
 			targetProxy = F60CCD2A2D79DE970086399F /* PBXContainerItemProxy */;
+		};
+		F687AF2A2DE5FA0300E8BC23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
+			targetProxy = F687AF292DE5FA0300E8BC23 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -444,13 +519,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DkVisuals.The-Wizard-of-OS";
-				PRODUCT_NAME = "The-Wizard-of-OS";
+				PRODUCT_NAME = TheWizardOfOS;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheWizardOfOS.app/Contents/MacOS/TheWizardOfOS";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -492,13 +568,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DkVisuals.The-Wizard-of-OS";
-				PRODUCT_NAME = "The-Wizard-of-OS";
+				PRODUCT_NAME = TheWizardOfOS;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheWizardOfOS.app/Contents/MacOS/TheWizardOfOS";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -521,7 +598,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Wizard of OS.app/Contents/MacOS/The Wizard of OS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The\\ Wizard\\ of\\ OS.app/Contents/MacOS/The\\ Wizard\\ of\\ OS";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -544,7 +621,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Wizard of OS.app/Contents/MacOS/The Wizard of OS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The\\ Wizard\\ of\\ OS.app/Contents/MacOS/The\\ Wizard\\ of\\ OS";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -593,6 +670,59 @@
 			};
 			name = Release;
 		};
+		F687AF2C2DE5FA0300E8BC23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NAS6CV73MP;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DkVisuals.TheWizardOfOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheWizardOfOS.app/Contents/MacOS/TheWizardOfOS";
+			};
+			name = Debug;
+		};
+		F687AF2D2DE5FA0300E8BC23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NAS6CV73MP;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DkVisuals.TheWizardOfOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheWizardOfOS.app/Contents/MacOS/TheWizardOfOS";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -628,6 +758,15 @@
 			buildConfigurations = (
 				F60CCD3A2D79DE970086399F /* Debug */,
 				F60CCD3B2D79DE970086399F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F687AF2B2DE5FA0300E8BC23 /* Build configuration list for PBXNativeTarget "TheWizardOfOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F687AF2C2DE5FA0300E8BC23 /* Debug */,
+				F687AF2D2DE5FA0300E8BC23 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

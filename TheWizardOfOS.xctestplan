@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "7CC21CDE-3716-4C52-8F0E-9D4F3FAF167D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:The Wizard of OS.xcodeproj",
+        "identifier" : "F687AF242DE5FA0300E8BC23",
+        "name" : "TheWizardOfOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}
