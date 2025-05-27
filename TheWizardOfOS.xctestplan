@@ -18,6 +18,13 @@
         "identifier" : "F687AF242DE5FA0300E8BC23",
         "name" : "TheWizardOfOSTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:The Wizard of OS.xcodeproj",
+        "identifier" : "F6044CD82DE5FF0B00FBB376",
+        "name" : "TheWizardOfOSUITests"
+      }
     }
   ],
   "version" : 1

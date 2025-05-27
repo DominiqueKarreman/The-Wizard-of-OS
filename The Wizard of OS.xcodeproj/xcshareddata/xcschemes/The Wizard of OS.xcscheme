@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
-               BuildableName = "The-Wizard-of-OS.app"
+               BuildableName = "TheWizardOfOS.app"
                BlueprintName = "The Wizard of OS"
                ReferencedContainer = "container:The Wizard of OS.xcodeproj">
             </BuildableReference>
@@ -82,6 +82,17 @@
                ReferencedContainer = "container:The Wizard of OS.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F6044CD82DE5FF0B00FBB376"
+               BuildableName = "TheWizardOfOSUITests.xctest"
+               BlueprintName = "TheWizardOfOSUITests"
+               ReferencedContainer = "container:The Wizard of OS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -99,7 +110,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
-            BuildableName = "The-Wizard-of-OS.app"
+            BuildableName = "TheWizardOfOS.app"
             BlueprintName = "The Wizard of OS"
             ReferencedContainer = "container:The Wizard of OS.xcodeproj">
          </BuildableReference>
@@ -116,7 +127,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
-            BuildableName = "The-Wizard-of-OS.app"
+            BuildableName = "TheWizardOfOS.app"
             BlueprintName = "The Wizard of OS"
             ReferencedContainer = "container:The Wizard of OS.xcodeproj">
          </BuildableReference>

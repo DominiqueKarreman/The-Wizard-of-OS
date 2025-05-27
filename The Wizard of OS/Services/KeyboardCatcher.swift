@@ -1,4 +1,6 @@
 import SwiftUI
+
+#if os(macOS)
 import AppKit
 
 struct KeyboardCatcher: NSViewRepresentable {
@@ -37,3 +39,15 @@ struct KeyboardCatcher: NSViewRepresentable {
 
     func updateNSView(_ nsView: NSTextField, context: Context) {}
 }
+
+#else
+
+struct KeyboardCatcher: View {
+    var onDelete: () -> Void
+
+    var body: some View {
+        EmptyView() // No-op on iOS
+    }
+}
+
+#endif
