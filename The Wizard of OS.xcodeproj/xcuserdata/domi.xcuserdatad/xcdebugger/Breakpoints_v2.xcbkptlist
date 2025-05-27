@@ -34,36 +34,6 @@
             endingLineNumber = "10"
             landmarkName = "preview"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "8A4033B3-BABE-4CF3-9A8C-6AA3C1DA129A - c0fae52931a2eb60"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; The_Wizard_of_OS.PersistenceController in variable initialization expression of static The_Wizard_of_OS.PersistenceController.preview : The_Wizard_of_OS.PersistenceController"
-                  moduleName = "The Wizard of OS.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/domi/Developer/The-wizard-of-OS/The%20Wizard%20of%20OS/Services/PersistenceController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "10"
-                  endingLineNumber = "10">
-               </Location>
-               <Location
-                  uuid = "8A4033B3-BABE-4CF3-9A8C-6AA3C1DA129A - e8b7351ae61cdfbf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; The_Wizard_of_OS.PersistenceController in variable initialization expression of static The_Wizard_of_OS.PersistenceController.preview : The_Wizard_of_OS.PersistenceController"
-                  moduleName = "The-Wizard-of-OS.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/domi/Developer/The-wizard-of-OS/The%20Wizard%20of%20OS/Services/PersistenceController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "10"
-                  endingLineNumber = "10">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
