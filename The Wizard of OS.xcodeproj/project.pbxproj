@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F621C5D82DA3C5080099E8B1 /* SiriWaveView */; };
 		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
+		F6E5B93F2DE5D1070016012A /* TestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F6E5B93E2DE5D1070016012A /* TestPlan.xctestplan */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,71 +30,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F60CCD0C2D79DE960086399F /* The Wizard of OS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Wizard of OS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F60CCD0C2D79DE960086399F /* The-Wizard-of-OS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The-Wizard-of-OS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD1F2D79DE960086399F /* The Wizard of OSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A2FE882D94B8990035BF58 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		F6E5B93E2DE5D1070016012A /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F6A2FF832D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Models/ViewModels/test.swift,
-			);
-			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
-		};
-		F6A2FF862D94BBF20035BF58 /* Exceptions for "The Wizard of OSTests" folder in "The Wizard of OSTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-				The_Wizard_of_OSTests.swift,
-			);
-			target = F60CCD1E2D79DE960086399F /* The Wizard of OSTests */;
-		};
-		F6A2FF872D94BBF20035BF58 /* Exceptions for "The Wizard of OSUITests" folder in "The Wizard of OSUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				The_Wizard_of_OSUITests.swift,
-				The_Wizard_of_OSUITestsLaunchTests.swift,
-			);
-			target = F60CCD282D79DE960086399F /* The Wizard of OSUITests */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		F6A2FF852D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = F60CCD0A2D79DE960086399F /* Resources */;
-			membershipExceptions = (
-				Models/ViewModels/test.swift,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F6A2FF532D94BBF20035BF58 /* The Wizard of OS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F6A2FF832D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "The Wizard of OS" target */,
-				F6A2FF852D94BBF20035BF58 /* Exceptions for "The Wizard of OS" folder in "Copy Bundle Resources" phase from "The Wizard of OS" target */,
-			);
 			path = "The Wizard of OS";
 			sourceTree = "<group>";
 		};
 		F6A2FF572D94BBF20035BF58 /* The Wizard of OSTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F6A2FF862D94BBF20035BF58 /* Exceptions for "The Wizard of OSTests" folder in "The Wizard of OSTests" target */,
-			);
 			path = "The Wizard of OSTests";
 			sourceTree = "<group>";
 		};
 		F6A2FF5A2D94BBF20035BF58 /* The Wizard of OSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F6A2FF872D94BBF20035BF58 /* Exceptions for "The Wizard of OSUITests" folder in "The Wizard of OSUITests" target */,
-			);
 			path = "The Wizard of OSUITests";
 			sourceTree = "<group>";
 		};
@@ -128,6 +84,7 @@
 		F60CCD032D79DE960086399F = {
 			isa = PBXGroup;
 			children = (
+				F6E5B93E2DE5D1070016012A /* TestPlan.xctestplan */,
 				F6A2FE882D94B8990035BF58 /* Package.swift */,
 				F670FA6C2D8346A30004B7BC /* Frameworks */,
 				F60CCD0D2D79DE960086399F /* Products */,
@@ -140,7 +97,7 @@
 		F60CCD0D2D79DE960086399F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F60CCD0C2D79DE960086399F /* The Wizard of OS.app */,
+				F60CCD0C2D79DE960086399F /* The-Wizard-of-OS.app */,
 				F60CCD1F2D79DE960086399F /* The Wizard of OSTests.xctest */,
 				F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */,
 			);
@@ -177,7 +134,7 @@
 				F621C5D82DA3C5080099E8B1 /* SiriWaveView */,
 			);
 			productName = "The Wizard of OS";
-			productReference = F60CCD0C2D79DE960086399F /* The Wizard of OS.app */;
+			productReference = F60CCD0C2D79DE960086399F /* The-Wizard-of-OS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F60CCD1E2D79DE960086399F /* The Wizard of OSTests */ = {
@@ -275,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6E5B93F2DE5D1070016012A /* TestPlan.xctestplan in Resources */,
 				F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,7 +444,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DkVisuals.The-Wizard-of-OS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The-Wizard-of-OS";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
@@ -534,7 +492,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DkVisuals.The-Wizard-of-OS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The-Wizard-of-OS";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
@@ -563,7 +521,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Wizard of OS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/The Wizard of OS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Wizard of OS.app/Contents/MacOS/The-wizard-of-OS";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -586,7 +544,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Wizard of OS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/The Wizard of OS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Wizard of OS.app/Contents/MacOS/The-wizard-of-OS";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;

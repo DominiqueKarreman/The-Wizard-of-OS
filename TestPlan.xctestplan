@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "943EFDCB-C571-46FF-9FAA-A1317BB04E78",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:The Wizard of OS.xcodeproj",
+        "identifier" : "F60CCD282D79DE960086399F",
+        "name" : "The Wizard of OSUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:The Wizard of OS.xcodeproj",
+        "identifier" : "F60CCD1E2D79DE960086399F",
+        "name" : "The Wizard of OSTests"
+      }
+    }
+  ],
+  "version" : 1
+}
