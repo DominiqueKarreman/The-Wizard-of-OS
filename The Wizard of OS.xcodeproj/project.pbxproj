@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F621C5D82DA3C5080099E8B1 /* SiriWaveView */; };
-		F651E5F62D835034009590CC /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = F651E5F52D835034009590CC /* Highlightr */; };
-		F670FA6E2D8346A90004B7BC /* OllamaKit in Frameworks */ = {isa = PBXBuildFile; productRef = F670FA6D2D8346A90004B7BC /* OllamaKit */; };
 		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
 /* End PBXBuildFile section */
 
@@ -107,8 +105,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */,
-				F651E5F62D835034009590CC /* Highlightr in Frameworks */,
-				F670FA6E2D8346A90004B7BC /* OllamaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,8 +174,6 @@
 			);
 			name = "The Wizard of OS";
 			packageProductDependencies = (
-				F670FA6D2D8346A90004B7BC /* OllamaKit */,
-				F651E5F52D835034009590CC /* Highlightr */,
 				F621C5D82DA3C5080099E8B1 /* SiriWaveView */,
 			);
 			productName = "The Wizard of OS";
@@ -262,9 +256,7 @@
 			mainGroup = F60CCD032D79DE960086399F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F670FA652D8344F80004B7BC /* XCRemoteSwiftPackageReference "OllamaKit" */,
-				F651E5F42D835029009590CC /* XCRemoteSwiftPackageReference "Highlightr" */,
-				F621C5D72DA3C4D30099E8B1 /* XCRemoteSwiftPackageReference "SiriWaveView" */,
+				F602649B2DE5B5A0006469D3 /* XCRemoteSwiftPackageReference "SiriWaveView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F60CCD0D2D79DE960086399F /* Products */;
@@ -683,28 +675,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F621C5D72DA3C4D30099E8B1 /* XCRemoteSwiftPackageReference "SiriWaveView" */ = {
+		F602649B2DE5B5A0006469D3 /* XCRemoteSwiftPackageReference "SiriWaveView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "/Users/domi/Library/Developer/Xcode/DerivedData/XCAAiAssistant-czouefgkaatdoyeutrfwkiumsfhp/SourcePackages/checkouts/SiriWaveView";
+			repositoryURL = "https://github.com/alfianlosari/SiriWaveView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.1.0;
-			};
-		};
-		F651E5F42D835029009590CC /* XCRemoteSwiftPackageReference "Highlightr" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/raspu/Highlightr.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.1;
-			};
-		};
-		F670FA652D8344F80004B7BC /* XCRemoteSwiftPackageReference "OllamaKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kevinhermawan/OllamaKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -713,16 +689,6 @@
 		F621C5D82DA3C5080099E8B1 /* SiriWaveView */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SiriWaveView;
-		};
-		F651E5F52D835034009590CC /* Highlightr */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F651E5F42D835029009590CC /* XCRemoteSwiftPackageReference "Highlightr" */;
-			productName = Highlightr;
-		};
-		F670FA6D2D8346A90004B7BC /* OllamaKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F670FA652D8344F80004B7BC /* XCRemoteSwiftPackageReference "OllamaKit" */;
-			productName = OllamaKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

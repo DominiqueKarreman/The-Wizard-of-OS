@@ -1,28 +1,10 @@
 {
-  "originHash" : "92be620b3944c01bdd586803c5a00c9872164e6a9c06988246550f9fb82f0219",
+  "originHash" : "5e3c392b31a7e8b8c290190e24a581572f85f5c9cfd21b120ed203390476309e",
   "pins" : [
     {
-      "identity" : "highlightr",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/raspu/Highlightr.git",
-      "state" : {
-        "revision" : "bcf2d0590f32ac2528feb72d7e34f5b463801a47",
-        "version" : "2.2.1"
-      }
-    },
-    {
-      "identity" : "ollamakit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kevinhermawan/OllamaKit.git",
-      "state" : {
-        "revision" : "b6ff6a0c75a3756450cfb38074f6264be1314abc",
-        "version" : "5.0.8"
-      }
-    },
-    {
       "identity" : "siriwaveview",
-      "kind" : "localSourceControl",
-      "location" : "/Users/domi/Library/Developer/Xcode/DerivedData/XCAAiAssistant-czouefgkaatdoyeutrfwkiumsfhp/SourcePackages/checkouts/SiriWaveView",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alfianlosari/SiriWaveView.git",
       "state" : {
         "revision" : "711287cd8d6ef16b5dbcced5ead82d93d0cb3c88",
         "version" : "1.1.0"
