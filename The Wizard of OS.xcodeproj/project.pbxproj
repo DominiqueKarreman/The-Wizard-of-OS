@@ -20,13 +20,6 @@
 			remoteGlobalIDString = F60CCD0B2D79DE960086399F;
 			remoteInfo = "The Wizard of OS";
 		};
-		F60CCD2A2D79DE970086399F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F60CCD042D79DE960086399F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F60CCD0B2D79DE960086399F;
-			remoteInfo = "The Wizard of OS";
-		};
 		F687AF292DE5FA0300E8BC23 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F60CCD042D79DE960086399F /* Project object */;
@@ -39,7 +32,6 @@
 /* Begin PBXFileReference section */
 		F6044CD92DE5FF0B00FBB376 /* TheWizardOfOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheWizardOfOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheWizardOfOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Wizard of OSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F687AF1F2DE5F96800E8BC23 /* TheWizardOfOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TheWizardOfOS.xctestplan; sourceTree = "<group>"; };
 		F687AF252DE5FA0300E8BC23 /* TheWizardOfOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheWizardOfOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A2FE882D94B8990035BF58 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -61,21 +53,6 @@
 			path = "The Wizard of OS";
 			sourceTree = "<group>";
 		};
-		F6A2FF572D94BBF20035BF58 /* The Wizard of OSTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "The Wizard of OSTests";
-			sourceTree = "<group>";
-		};
-		F6A2FF5A2D94BBF20035BF58 /* The Wizard of OSUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "The Wizard of OSUITests";
-			sourceTree = "<group>";
-		};
-		F6B7C8A42DE5F8E10059648F /* The-Wizard-of-OSTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "The-Wizard-of-OSTests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,13 +71,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F60CCD262D79DE960086399F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F687AF222DE5FA0300E8BC23 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -116,14 +86,11 @@
 			children = (
 				F687AF1F2DE5F96800E8BC23 /* TheWizardOfOS.xctestplan */,
 				F6A2FE882D94B8990035BF58 /* Package.swift */,
-				F6B7C8A42DE5F8E10059648F /* The-Wizard-of-OSTests */,
+				F6A2FF532D94BBF20035BF58 /* The Wizard of OS */,
 				F687AF262DE5FA0300E8BC23 /* TheWizardOfOSTests */,
 				F6044CDA2DE5FF0B00FBB376 /* TheWizardOfOSUITests */,
 				F670FA6C2D8346A30004B7BC /* Frameworks */,
 				F60CCD0D2D79DE960086399F /* Products */,
-				F6A2FF532D94BBF20035BF58 /* The Wizard of OS */,
-				F6A2FF572D94BBF20035BF58 /* The Wizard of OSTests */,
-				F6A2FF5A2D94BBF20035BF58 /* The Wizard of OSUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */,
-				F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */,
 				F687AF252DE5FA0300E8BC23 /* TheWizardOfOSTests.xctest */,
 				F6044CD92DE5FF0B00FBB376 /* TheWizardOfOSUITests.xctest */,
 			);
@@ -194,26 +160,6 @@
 			productReference = F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F60CCD282D79DE960086399F /* The Wizard of OSUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F60CCD392D79DE970086399F /* Build configuration list for PBXNativeTarget "The Wizard of OSUITests" */;
-			buildPhases = (
-				F60CCD252D79DE960086399F /* Sources */,
-				F60CCD262D79DE960086399F /* Frameworks */,
-				F60CCD272D79DE960086399F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F60CCD2B2D79DE970086399F /* PBXTargetDependency */,
-			);
-			name = "The Wizard of OSUITests";
-			packageProductDependencies = (
-			);
-			productName = "The Wizard of OSUITests";
-			productReference = F60CCD292D79DE960086399F /* The Wizard of OSUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		F687AF242DE5FA0300E8BC23 /* TheWizardOfOSTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F687AF2B2DE5FA0300E8BC23 /* Build configuration list for PBXNativeTarget "TheWizardOfOSTests" */;
@@ -257,10 +203,6 @@
 					F60CCD0B2D79DE960086399F = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					F60CCD282D79DE960086399F = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = F60CCD0B2D79DE960086399F;
-					};
 					F687AF242DE5FA0300E8BC23 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = F60CCD0B2D79DE960086399F;
@@ -285,7 +227,6 @@
 			projectRoot = "";
 			targets = (
 				F60CCD0B2D79DE960086399F /* The Wizard of OS */,
-				F60CCD282D79DE960086399F /* The Wizard of OSUITests */,
 				F687AF242DE5FA0300E8BC23 /* TheWizardOfOSTests */,
 				F6044CD82DE5FF0B00FBB376 /* TheWizardOfOSUITests */,
 			);
@@ -306,13 +247,6 @@
 			files = (
 				F687AF202DE5F96800E8BC23 /* TheWizardOfOS.xctestplan in Resources */,
 				F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F60CCD272D79DE960086399F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,13 +274,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F60CCD252D79DE960086399F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F687AF212DE5FA0300E8BC23 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -361,11 +288,6 @@
 			isa = PBXTargetDependency;
 			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
 			targetProxy = F6044CDF2DE5FF0B00FBB376 /* PBXContainerItemProxy */;
-		};
-		F60CCD2B2D79DE970086399F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
-			targetProxy = F60CCD2A2D79DE970086399F /* PBXContainerItemProxy */;
 		};
 		F687AF2A2DE5FA0300E8BC23 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -640,52 +562,6 @@
 			};
 			name = Release;
 		};
-		F60CCD3A2D79DE970086399F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NAS6CV73MP;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.DkVisuals.The-Wizard-of-OSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "The Wizard of OS";
-				XROS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		F60CCD3B2D79DE970086399F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NAS6CV73MP;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.DkVisuals.The-Wizard-of-OSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "The Wizard of OS";
-				XROS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Release;
-		};
 		F687AF2C2DE5FA0300E8BC23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -765,15 +641,6 @@
 			buildConfigurations = (
 				F60CCD342D79DE970086399F /* Debug */,
 				F60CCD352D79DE970086399F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F60CCD392D79DE970086399F /* Build configuration list for PBXNativeTarget "The Wizard of OSUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F60CCD3A2D79DE970086399F /* Debug */,
-				F60CCD3B2D79DE970086399F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
