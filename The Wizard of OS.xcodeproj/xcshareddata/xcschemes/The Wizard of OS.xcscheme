@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
                BuildableName = "TheWizardOfOS.app"
-               BlueprintName = "The Wizard of OS"
+               BlueprintName = "TheWizardOfOS"
                ReferencedContainer = "container:The Wizard of OS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -75,7 +75,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
             BuildableName = "TheWizardOfOS.app"
-            BlueprintName = "The Wizard of OS"
+            BlueprintName = "TheWizardOfOS"
             ReferencedContainer = "container:The Wizard of OS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -92,7 +92,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F60CCD0B2D79DE960086399F"
             BuildableName = "TheWizardOfOS.app"
-            BlueprintName = "The Wizard of OS"
+            BlueprintName = "TheWizardOfOS"
             ReferencedContainer = "container:The Wizard of OS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -10,6 +10,7 @@
 		F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F621C5D82DA3C5080099E8B1 /* SiriWaveView */; };
 		F687AF202DE5F96800E8BC23 /* TheWizardOfOS.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F687AF1F2DE5F96800E8BC23 /* TheWizardOfOS.xctestplan */; };
 		F6A2FEB12D94B8990035BF58 /* Package.swift in Resources */ = {isa = PBXBuildFile; fileRef = F6A2FE882D94B8990035BF58 /* Package.swift */; };
+		F6DE79BB2DE7095C00BC6A57 /* SiriWaveView in Frameworks */ = {isa = PBXBuildFile; productRef = F6DE79BA2DE7095C00BC6A57 /* SiriWaveView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F621C5D92DA3C5080099E8B1 /* SiriWaveView in Frameworks */,
+				F6DE79BB2DE7095C00BC6A57 /* SiriWaveView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,9 +139,9 @@
 			productReference = F6044CD92DE5FF0B00FBB376 /* TheWizardOfOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		F60CCD0B2D79DE960086399F /* The Wizard of OS */ = {
+		F60CCD0B2D79DE960086399F /* TheWizardOfOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F60CCD332D79DE970086399F /* Build configuration list for PBXNativeTarget "The Wizard of OS" */;
+			buildConfigurationList = F60CCD332D79DE970086399F /* Build configuration list for PBXNativeTarget "TheWizardOfOS" */;
 			buildPhases = (
 				F60CCD082D79DE960086399F /* Sources */,
 				F60CCD092D79DE960086399F /* Frameworks */,
@@ -152,9 +154,10 @@
 			fileSystemSynchronizedGroups = (
 				F6A2FF532D94BBF20035BF58 /* The Wizard of OS */,
 			);
-			name = "The Wizard of OS";
+			name = TheWizardOfOS;
 			packageProductDependencies = (
 				F621C5D82DA3C5080099E8B1 /* SiriWaveView */,
+				F6DE79BA2DE7095C00BC6A57 /* SiriWaveView */,
 			);
 			productName = "The Wizard of OS";
 			productReference = F60CCD0C2D79DE960086399F /* TheWizardOfOS.app */;
@@ -219,14 +222,14 @@
 			mainGroup = F60CCD032D79DE960086399F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F602649B2DE5B5A0006469D3 /* XCRemoteSwiftPackageReference "SiriWaveView" */,
+				F6DE79B92DE7095C00BC6A57 /* XCRemoteSwiftPackageReference "SiriWaveView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F60CCD0D2D79DE960086399F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F60CCD0B2D79DE960086399F /* The Wizard of OS */,
+				F60CCD0B2D79DE960086399F /* TheWizardOfOS */,
 				F687AF242DE5FA0300E8BC23 /* TheWizardOfOSTests */,
 				F6044CD82DE5FF0B00FBB376 /* TheWizardOfOSUITests */,
 			);
@@ -286,12 +289,12 @@
 /* Begin PBXTargetDependency section */
 		F6044CE02DE5FF0B00FBB376 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
+			target = F60CCD0B2D79DE960086399F /* TheWizardOfOS */;
 			targetProxy = F6044CDF2DE5FF0B00FBB376 /* PBXContainerItemProxy */;
 		};
 		F687AF2A2DE5FA0300E8BC23 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F60CCD0B2D79DE960086399F /* The Wizard of OS */;
+			target = F60CCD0B2D79DE960086399F /* TheWizardOfOS */;
 			targetProxy = F687AF292DE5FA0300E8BC23 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -636,7 +639,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F60CCD332D79DE970086399F /* Build configuration list for PBXNativeTarget "The Wizard of OS" */ = {
+		F60CCD332D79DE970086399F /* Build configuration list for PBXNativeTarget "TheWizardOfOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F60CCD342D79DE970086399F /* Debug */,
@@ -657,7 +660,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F602649B2DE5B5A0006469D3 /* XCRemoteSwiftPackageReference "SiriWaveView" */ = {
+		F6DE79B92DE7095C00BC6A57 /* XCRemoteSwiftPackageReference "SiriWaveView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alfianlosari/SiriWaveView.git";
 			requirement = {
@@ -670,6 +673,11 @@
 /* Begin XCSwiftPackageProductDependency section */
 		F621C5D82DA3C5080099E8B1 /* SiriWaveView */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = SiriWaveView;
+		};
+		F6DE79BA2DE7095C00BC6A57 /* SiriWaveView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6DE79B92DE7095C00BC6A57 /* XCRemoteSwiftPackageReference "SiriWaveView" */;
 			productName = SiriWaveView;
 		};
 /* End XCSwiftPackageProductDependency section */
