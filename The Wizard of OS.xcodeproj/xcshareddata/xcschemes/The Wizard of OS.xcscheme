@@ -33,44 +33,8 @@
             reference = "container:TheWizardOfOS.xctestplan"
             default = "YES">
          </TestPlanReference>
-         <TestPlanReference
-            reference = "container:The Wizard of OS.xctestplan">
-         </TestPlanReference>
       </TestPlans>
       <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F60CCD1E2D79DE960086399F"
-               BuildableName = "The Wizard of OSTests.xctest"
-               BlueprintName = "The Wizard of OSTests"
-               ReferencedContainer = "container:The Wizard of OS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F60CCD282D79DE960086399F"
-               BuildableName = "The Wizard of OSUITests.xctest"
-               BlueprintName = "The Wizard of OSUITests"
-               ReferencedContainer = "container:The Wizard of OS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F6B7C8A22DE5F8E10059648F"
-               BuildableName = "The-Wizard-of-OSTests.xctest"
-               BlueprintName = "The-Wizard-of-OSTests"
-               ReferencedContainer = "container:The Wizard of OS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO"
             parallelizable = "YES">
